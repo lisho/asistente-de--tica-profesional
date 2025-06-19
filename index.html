@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asistente de Ética Profesional</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/heroicons/2.1.1/24/outline/heroicons.min.css" rel="stylesheet">
+
+  <!-- PWA Manifest and Meta Tags -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#475569"> <!-- Corresponde a slate-600 -->
+
+  <!-- Apple PWA meta tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ÉticaPro">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <!-- Puedes añadir más tamaños de apple-touch-icon si lo deseas, ej: -->
+  <!-- <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png"> -->
+  <!-- <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png"> -->
+  <!-- <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167x167.png"> -->
+
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.0.1",
+    "fs-extra": "https://esm.sh/fs-extra@^11.3.0",
+    "path": "https://esm.sh/path@^0.12.7",
+    "url": "https://esm.sh/url@^0.11.4",
+    "jspdf": "https://esm.sh/jspdf@^2.5.1"
+  }
+}
+</script>
+<style>
+  /* Base font size for messages is text-sm (0.875rem) from ChatMessage.tsx */
+  /* These classes adjust relative to that or set absolute sizes. */
+  .chat-font-xs .message-text-content { font-size: 0.75rem !important; line-height: 1rem !important; } /* Tailwind text-xs */
+  .chat-font-sm .message-text-content { font-size: 0.875rem !important; line-height: 1.25rem !important; } /* Tailwind text-sm */
+  .chat-font-md .message-text-content { font-size: 1rem !important; line-height: 1.5rem !important; }    /* Tailwind text-base */
+  .chat-font-lg .message-text-content { font-size: 1.125rem !important; line-height: 1.75rem !important; } /* Tailwind text-lg */
+  .chat-font-xl .message-text-content { font-size: 1.25rem !important; line-height: 1.75rem !important; } /* Tailwind text-xl */
+
+  /* Adjust timestamp size accordingly */
+  /* Base timestamp size is text-xs (0.75rem) from ChatMessage.tsx */
+  .chat-font-xs .timestamp-text { font-size: 0.65rem !important; }
+  .chat-font-sm .timestamp-text { font-size: 0.75rem !important; } 
+  .chat-font-md .timestamp-text { font-size: 0.875rem !important; } /* Tailwind text-sm */
+  .chat-font-lg .timestamp-text { font-size: 0.875rem !important; }
+  .chat-font-xl .timestamp-text { font-size: 0.875rem !important; }
+
+  /* Ensure prose styles don't override font size too aggressively */
+  .message-text-content .prose-sm, .message-text-content .prose-slate {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+  .message-text-content .prose-sm > :first-child, .message-text-content .prose-slate > :first-child {
+    margin-top: 0 !important;
+  }
+  .message-text-content .prose-sm > :last-child, .message-text-content .prose-slate > :last-child {
+    margin-bottom: 0 !important;
+  }
+
+</style>
+</head>
+<body class="bg-slate-100">
+  <div id="root"></div>
+  <script type="module" src="./index.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('ServiceWorker: Registrado con éxito con el ámbito: ', registration.scope);
+          })
+          .catch(error => {
+            console.log('ServiceWorker: Falló el registro: ', error);
+          });
+      });
+    }
+  </script>
+</body>
+</html>
+<link rel="stylesheet" href="index.css">
+<script src="index.tsx" type="module"></script>
