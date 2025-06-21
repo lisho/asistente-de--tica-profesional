@@ -9,16 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react-dom": "^19.1.0",
-    "react": "^19.1.0",
     "@google/genai": "^1.0.1",
     "fs-extra": "^11.3.0",
+    "jspdf": "^3.0.1",
     "path": "^0.12.7",
-    "url": "^0.11.4",
-    "jspdf": "^2.5.1"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "url": "^0.11.4"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
+    "@types/react": "^19.1.8",
     "typescript": "~5.7.2",
     "vite": "^6.2.0"
   }

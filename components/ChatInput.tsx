@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef } from 'react';
 import { AssistantTheme } from '../assistants';
 
@@ -84,12 +85,9 @@ interface ChatInputProps {
   theme: AssistantTheme;
 }
 
-// FIX: Correctly get the SpeechRecognition constructor, trying standard and prefixed versions.
-// Typed as SpeechRecognitionConstructor | undefined.
 const SpeechRecognitionAPIConstructor: SpeechRecognitionConstructor | undefined =
   (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
-// FIX: browserSupportsSpeechRecognition checks the existence of the constructor.
 const browserSupportsSpeechRecognition = !!SpeechRecognitionAPIConstructor;
 
 export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading, theme }) => {
@@ -97,58 +95,52 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading, 
   const [isListening, setIsListening] = useState(false);
   const [speechApiError, setSpeechApiError] = useState<string | null>(null);
 
-  // FIX: Use the SpeechRecognitionInstance interface for the ref's current type.
   const speechRecognitionRef = useRef<SpeechRecognitionInstance | null>(null);
-  const initialInputTextRef = useRef<string>('');
+  // Ref to store the input value that was present when speech recognition started.
+  const textBeforeSpeechRef = useRef<string>('');
 
   useEffect(() => {
-    // FIX: Ensure the constructor exists before trying to use it.
     if (!browserSupportsSpeechRecognition || !SpeechRecognitionAPIConstructor) {
-      setSpeechApiError("Tu navegador no soporta el reconocimiento de voz.");
       return;
     }
 
-    // FIX: Instantiate using the (now correctly typed) SpeechRecognitionAPIConstructor.
     const recognition: SpeechRecognitionInstance = new SpeechRecognitionAPIConstructor();
     recognition.lang = 'es-ES';
     recognition.continuous = false;
     recognition.interimResults = true;
 
     recognition.onstart = () => {
+      // textBeforeSpeechRef is set by handleMicClick before calling start()
       setIsListening(true);
       setSpeechApiError(null);
     };
 
-    // FIX: Use the CustomSpeechRecognitionEvent interface for the event parameter.
     recognition.onresult = (event: CustomSpeechRecognitionEvent) => {
       let interimTranscript = '';
       let finalTranscript = '';
 
       for (let i = event.resultIndex; i < event.results.length; ++i) {
-        // Access SpeechRecognitionResult using .item() or direct indexing (if type allows)
-        const speechResult = event.results[i]; // event.results.item(i) would also work
+        const speechResult = event.results[i];
         if (speechResult.isFinal) {
-          // Access SpeechRecognitionAlternative using .item() or direct indexing
-          finalTranscript += speechResult[0].transcript; // speechResult.item(0).transcript
+          finalTranscript += speechResult[0].transcript;
         } else {
           interimTranscript += speechResult[0].transcript;
         }
       }
       
       const currentTranscript = finalTranscript || interimTranscript;
+      const baseText = textBeforeSpeechRef.current;
       
-      if (initialInputTextRef.current.trim() === '') {
-        setInputValue(currentTranscript);
+      let newText = baseText;
+      if (baseText.trim() === '') {
+        newText = currentTranscript;
       } else {
-        setInputValue(initialInputTextRef.current + (initialInputTextRef.current.endsWith(' ') || currentTranscript.startsWith(' ') ? '' : ' ') + currentTranscript);
+        // Ensure a space is added if needed when concatenating
+        newText = baseText + (baseText.endsWith(' ') || currentTranscript.startsWith(' ') || baseText === '' ? '' : ' ') + currentTranscript;
       }
-
-      if (finalTranscript) {
-        initialInputTextRef.current = initialInputTextRef.current.trim() === '' ? finalTranscript : initialInputTextRef.current + (initialInputTextRef.current.endsWith(' ') || finalTranscript.startsWith(' ') ? '' : ' ') + finalTranscript;
-      }
+      setInputValue(newText);
     };
 
-    // FIX: Use the CustomSpeechRecognitionErrorEvent interface for the event parameter.
     recognition.onerror = (event: CustomSpeechRecognitionErrorEvent) => {
       console.error('Speech recognition error:', event.error);
       let errorMessage = "Error en el reconocimiento de voz.";
@@ -158,35 +150,39 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading, 
         errorMessage = "Error al capturar audio. Revisa tu micrófono.";
       } else if (event.error === 'not-allowed') {
         errorMessage = "Permiso para usar el micrófono denegado. Habilítalo en la configuración de tu navegador.";
+      } else if (event.error === 'service-not-allowed') {
+        errorMessage = "Servicio de reconocimiento no permitido.";
       }
       setSpeechApiError(errorMessage);
       setIsListening(false);
     };
 
     recognition.onend = () => {
-      if(!speechApiError && isListening){
-        setIsListening(false);
-      }
+      setIsListening(false);
     };
 
     speechRecognitionRef.current = recognition;
 
     return () => {
       if (speechRecognitionRef.current) {
-        speechRecognitionRef.current.stop();
+        speechRecognitionRef.current.onstart = null;
+        speechRecognitionRef.current.onresult = null;
+        speechRecognitionRef.current.onerror = null;
+        speechRecognitionRef.current.onend = null;
+        speechRecognitionRef.current.abort();
       }
     };
-  }, [speechApiError, isListening]);
+  }, []); // Corrected: Empty dependency array ensures this runs only on mount and unmount.
 
   const handleMicClick = () => {
     if (!speechRecognitionRef.current || !browserSupportsSpeechRecognition) return;
 
     if (isListening) {
       speechRecognitionRef.current.stop();
-      setIsListening(false); 
+      // onend will set isListening to false
     } else {
       setSpeechApiError(null); 
-      initialInputTextRef.current = inputValue; 
+      textBeforeSpeechRef.current = inputValue; // Capture current input value before starting
       speechRecognitionRef.current.start();
     }
   };
@@ -194,25 +190,27 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading, 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isListening && speechRecognitionRef.current) {
-       speechRecognitionRef.current.stop(); 
-       setIsListening(false);
+       speechRecognitionRef.current.stop();
+       // onend will set isListening to false
     }
-    if (inputValue.trim() && !isLoading) {
-      onSendMessage(inputValue);
+    const messageToSend = inputValue.trim();
+    if (messageToSend && !isLoading) {
+      onSendMessage(messageToSend);
       setInputValue('');
-      initialInputTextRef.current = ''; 
+      textBeforeSpeechRef.current = ''; // Reset for next interaction
     }
   };
   
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
-    if (!isListening) { 
-        initialInputTextRef.current = e.target.value;
-    }
+    // If user types while listening, textBeforeSpeechRef won't update,
+    // so onresult will append to the text that was there *before* listening started.
+    // This is a common behavior for simple speech input implementations.
   };
 
-  const canUseMic = browserSupportsSpeechRecognition && speechApiError !== "Permiso para usar el micrófono denegado. Habilítalo en la configuración de tu navegador." && speechApiError !== "Tu navegador no soporta el reconocimiento de voz.";
-
+  const canUseMic = browserSupportsSpeechRecognition && 
+                    speechApiError !== "Permiso para usar el micrófono denegado. Habilítalo en la configuración de tu navegador." && 
+                    speechApiError !== "Tu navegador no soporta el reconocimiento de voz.";
 
   return (
     <form onSubmit={handleSubmit} className="p-4 bg-slate-200 border-t border-slate-300">
@@ -259,9 +257,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading, 
         <button
           type="submit"
           className={`p-3 rounded-lg ${theme.accentText} transition-colors ${
-            isLoading ? 'bg-slate-400 cursor-not-allowed' : `${theme.accentBg} ${theme.accentHoverBg}`
+            isLoading || !inputValue.trim() ? 'bg-slate-400 cursor-not-allowed' : `${theme.accentBg} ${theme.accentHoverBg}`
           }`}
-          disabled={isLoading}
+          disabled={isLoading || !inputValue.trim()}
           aria-label="Enviar mensaje"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -272,6 +270,11 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading, 
       {speechApiError && (
         <p id="speech-error-message" className="text-xs text-red-600 mt-1 text-center" role="alert">
           {speechApiError}
+        </p>
+      )}
+      {!browserSupportsSpeechRecognition && (
+         <p className="text-xs text-slate-500 mt-1 text-center">
+          El reconocimiento de voz no es compatible con este navegador.
         </p>
       )}
     </form>
