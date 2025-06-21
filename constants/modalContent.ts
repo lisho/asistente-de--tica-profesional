@@ -92,7 +92,7 @@ export const HOW_TO_USE_SECTIONS = [
 
 export const BUTTON_LEGEND_ITEMS = [
   {
-    icon: "⬅️ (Flechas izquierda/derecha)",
+    icon: "⬅️",
     name: "Cambiar de Asistente",
     description: "Vuelve a la página de bienvenida para seleccionar otro asistente o cambiar tu nombre. El chat actual con el asistente previo se guardará si vuelves a él.",
     location: "Cabecera"
@@ -110,55 +110,55 @@ export const BUTTON_LEGEND_ITEMS = [
     location: "Cabecera"
   },
   {
-    icon: "📄⬇️ (Descarga PDF)",
+    icon: "📄⬇️",
     name: "Descargar Chat (PDF)",
     description: "Guarda la conversación actual como un archivo PDF en tu dispositivo.",
     location: "Cabecera"
   },
   {
-    icon: "⭐ (Estrella)",
+    icon: "⭐",
     name: "Ver Favoritos",
     description: "Abre un modal donde puedes ver todas las interacciones (tu pregunta y la respuesta del IA) que hayas marcado como favoritas. También puedes descargar tus favoritos en PDF desde aquí.",
     location: "Cabecera"
   },
   {
-    icon: "🗑️ (Papelera)",
+    icon: "🗑️",
     name: "Limpiar Chat",
     description: "Elimina todos los mensajes de la conversación actual con el asistente. Se pedirá confirmación.",
     location: "Cabecera"
   },
   {
-    icon: "ℹ️ (Información)",
+    icon: "ℹ️",
     name: "Acerca de [Asistente]",
     description: "Muestra información detallada sobre el asistente actual, su propósito, base de conocimiento y limitaciones.",
     location: "Cabecera"
   },
   {
-    icon: "🎤 (Micrófono)",
+    icon: "🎤",
     name: "Dictar Mensaje / Detener Dictado",
     description: "Permite dictar tu pregunta usando la voz. Púlsalo una vez para empezar a escuchar, y de nuevo para detener. Si el navegador no es compatible o no tiene permisos, estará desactivado.",
     location: "Entrada de Mensajes"
   },
   {
-    icon: "➤ (Avión de Papel)",
+    icon: "➤",
     name: "Enviar Mensaje",
     description: "Envía el texto que has escrito (o dictado) al asistente.",
     location: "Entrada de Mensajes"
   },
   {
-    icon: "⭐ (Estrella en mensaje)",
+    icon: "⭐",
     name: "Marcar/Desmarcar Favorito",
     description: "Aparece al pasar el ratón sobre un mensaje del asistente. Permite guardar la interacción (tu pregunta previa y esta respuesta) como favorita, o quitarla si ya lo estaba.",
     location: "Mensajes del Asistente"
   },
   {
-    icon: "📋 (Copiar)",
+    icon: "📋",
     name: "Copiar Mensaje",
     description: "Aparece al pasar el ratón sobre un mensaje del asistente. Copia el texto completo de ese mensaje al portapapeles.",
     location: "Mensajes del Asistente"
   },
   {
-    icon: "⬇️ (Instalar App)",
+    icon: "⬇️",
     name: "Instalar Aplicación",
     description: "Botón flotante que aparece si la aplicación aún no está instalada como PWA y el navegador lo soporta. Te permite instalar la app en tu dispositivo.",
     location: "Esquina inferior derecha (si aplica)"

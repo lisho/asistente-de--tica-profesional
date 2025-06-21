@@ -50,7 +50,7 @@ export async function* getAssistantResponseStream(
 
     const stream = await chat.sendMessageStream({ message: userMessage });
     for await (const chunk of stream) {
-      yield chunk.text;
+      yield chunk.text || "";
     }
   } catch (error) {
     console.error("Gemini API error:", error);

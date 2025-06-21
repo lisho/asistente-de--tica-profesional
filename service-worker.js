@@ -1,3 +1,4 @@
+
 const CACHE_NAME = 'etica-profesional-cache-v1';
 
 // Definir explícitamente todos los iconos del manifest.json
@@ -14,13 +15,12 @@ const iconsFromManifest = [
 
 const urlsToCache = [
   '/index.html',
-  '/index.js', // Asume que este es el resultado compilado de index.tsx
+  '/index.js', 
   '/metadata.json',
   '/eulogio.png',
-  '/pepi.png', // Actualizado de clara.png a pepi.png
-  ...iconsFromManifest // Incluir todos los iconos
-  // Tailwind y Heroicons son vía CDN. El caché del navegador + la estrategia de fetch del SW los manejarán.
-  // Las importaciones de esm.sh también son manejadas por el caché del navegador + la estrategia de fetch del SW.
+  '/pepi.png', 
+  '/gemini.png', // Nuevo avatar genérico
+  ...iconsFromManifest 
 ];
 
 self.addEventListener('install', (event) => {
@@ -28,9 +28,6 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('Caché abierto');
-        // Añadir todos los URLs al caché.
-        // Para activos locales críticos, asegúrate de que se almacenen en caché.
-        // No fallar la instalación si algunos recursos CDN no son accesibles en este momento.
         const criticalAssets = urlsToCache.filter(url => !url.startsWith('http') && !url.startsWith('https'));
         const nonCriticalAssets = urlsToCache.filter(url => url.startsWith('http') || url.startsWith('https'));
         
@@ -63,12 +60,10 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Solo queremos manejar solicitudes GET para el almacenamiento en caché
   if (event.request.method !== 'GET') {
     return;
   }
 
-  // No intentar cachear llamadas a la API de Gemini
   if (event.request.url.includes('generativelanguage.googleapis.com')) {
     event.respondWith(fetch(event.request));
     return;
@@ -77,15 +72,12 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
-        // Cache hit - retornar respuesta
         if (response) {
           return response;
         }
 
-        // No está en caché - obtener de la red
         return fetch(event.request).then(
           (networkResponse) => {
-            // Comprobar si recibimos una respuesta válida
             if (!networkResponse || networkResponse.status !== 200 ) { 
               return networkResponse;
             }
@@ -101,10 +93,6 @@ self.addEventListener('fetch', (event) => {
           }
         ).catch(error => {
           console.error('Falló la obtención:', error);
-          // Opcionalmente, retornar una página de fallback para solicitudes de navegación si está offline
-          // if (event.request.mode === 'navigate') {
-          //   return caches.match('/offline.html'); // Necesitarías un offline.html cacheado
-          // }
           return new Response('Error de red al intentar obtener el recurso.', {
             status: 408,
             headers: { 'Content-Type': 'text/plain' },

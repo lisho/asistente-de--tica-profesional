@@ -91,12 +91,24 @@ export const HelpGuideModal: React.FC<HelpGuideModalProps> = ({ isOpen, onClose,
             <div className="space-y-3">
               {BUTTON_LEGEND_ITEMS.map((item, index) => (
                 <div key={`legend-${index}`} className="p-3 border border-slate-200 rounded-md bg-slate-50 text-sm">
-                  <div className="flex items-center mb-1">
-                    <span className={`inline-block text-center mr-2 font-mono text-lg ${theme.accentBg.replace('bg-','text-')}`} style={{minWidth: '30px'}}>{item.icon}</span>
-                    <span className="font-semibold text-slate-700">{item.name}</span>
-                    <span className="ml-auto text-xs text-slate-500 bg-slate-200 px-1.5 py-0.5 rounded-full">{item.location}</span>
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex items-start mb-1 sm:mb-0"> 
+                      <span 
+                        className={`inline-block text-center mr-2 font-mono text-lg ${theme.accentBg.replace('bg-','text-')}`} 
+                        style={{minWidth: '30px'}}
+                        aria-hidden="true"
+                      >
+                        {item.icon}
+                      </span>
+                      <span className="font-semibold text-slate-700">{item.name}</span>
+                    </div>
+                    <span 
+                      className="text-xs text-slate-500 bg-slate-200 px-1.5 py-0.5 rounded-full self-start mt-1 sm:mt-0 sm:ml-2 whitespace-nowrap"
+                    > 
+                      {item.location}
+                    </span>
                   </div>
-                  <p className="text-slate-600 pl-10">{item.description}</p>
+                  <p className="text-slate-600 mt-2 sm:mt-1 sm:pl-[38px]">{item.description}</p>
                 </div>
               ))}
             </div>

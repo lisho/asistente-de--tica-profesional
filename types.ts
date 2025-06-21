@@ -37,3 +37,12 @@ export interface BeforeInstallPromptEvent extends Event {
   }>;
   prompt(): Promise<void>;
 }
+
+export interface Conversation {
+  id: string;
+  userName: string;
+  assistantKey: string; // Using AssistantKey enum might be better if imported, using string for simplicity if types.ts is isolated
+  title: string;
+  messages: Message[];
+  timestamp: Date; // Last updated or creation date
+}

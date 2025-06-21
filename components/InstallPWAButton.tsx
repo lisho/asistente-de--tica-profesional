@@ -4,16 +4,27 @@ import { AssistantTheme } from '../assistants';
 
 interface InstallPWAButtonProps {
   onClick: () => void;
-  theme: AssistantTheme;
+  theme: AssistantTheme; // Theme prop is kept for potential future use or other non-color aspects
+  isFixed?: boolean; 
 }
 
-export const InstallPWAButton: React.FC<InstallPWAButtonProps> = ({ onClick, theme }) => {
+export const InstallPWAButton: React.FC<InstallPWAButtonProps> = ({ onClick, theme, isFixed = true }) => {
+  // Specific colors for the install button to make it "greyish green"
+  const installButtonBg = 'bg-emerald-600';
+  const installButtonText = 'text-white';
+  const installButtonHoverBg = 'hover:bg-emerald-700';
+  const installButtonFocusRing = 'focus:ring-emerald-500'; // Or focus:ring-emerald-600
+
+  const baseClasses = `flex items-center px-4 py-3 rounded-lg shadow-xl transition-all duration-150 ease-in-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2
+                     ${installButtonBg} ${installButtonText} ${installButtonHoverBg} 
+                     ${installButtonFocusRing}`;
+  
+  const fixedClasses = isFixed ? 'fixed bottom-5 right-5 z-50' : 'w-full';
+
   return (
     <button
       onClick={onClick}
-      className={`fixed bottom-5 right-5 z-50 flex items-center px-4 py-3 rounded-lg shadow-xl transition-all duration-150 ease-in-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2
-                  ${theme.accentBg} ${theme.accentText} ${theme.accentHoverBg} 
-                  ${theme.accentBg.replace('bg-','focus:ring-')}`}
+      className={`${baseClasses} ${fixedClasses}`}
       title="Instalar aplicación en tu dispositivo"
       aria-label="Instalar esta aplicación en tu dispositivo"
     >
