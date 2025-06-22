@@ -3,11 +3,11 @@ export const ABOUT_EULOGIO_CONTENT = {
   sections: [
     {
       heading: "Propósito",
-      text: "Eulogio es un asistente virtual de IA diseñado para profesionales y estudiantes de Trabajo Social en España. Su objetivo principal es ofrecer orientación y respuestas basadas en el Código Deontológico de la profesión y documentos relevantes sobre ética profesional."
+      text: "Eulogio es un asistente virtual de IA diseñado para apoyar a profesionales y estudiantes de Trabajo Social en España. Su objetivo principal es ofrecer orientación y respuestas basadas en el Código Deontológico de la profesión y documentos relevantes sobre ética profesional."
     },
     {
       heading: "Base de Conocimiento",
-      text: "Eulogio se basa fundamentalmente en el 'Código Deontológico del Trabajo Social' (Consejo General del Trabajo Social, 2012) y el 'Documento de Información: Ética y Deontología en el Trabajo Social en España'. Procura citar las fuentes cuando es pertinente."
+      text: "Eulogio se basa fundamentalmente en el 'Código Deontológico del Trabajo Social' (Consejo General del Trabajo Social, 2012) y el 'Documento de Información: Ética y Deontología en el Trabajo Social en España'. Como buen profesional, procurará citar las fuentes cuando es pertinente."
     },
     {
       heading: "Limitaciones Importantes",
@@ -25,7 +25,7 @@ export const ABOUT_PEPI_CONTENT = {
   sections: [
     {
       heading: "Misión",
-      text: "Pepi es una asistente virtual IA enfocada en el bienestar social y la ética profesional para el Trabajo Social en España. Busca proporcionar apoyo claro y empático, basándose en el Código Deontológico y documentación ética relevante."
+      text: "Pepi es una asistente virtual IA enfocada en apoyar a profesionales y estudiantes de Trabajo Social en España. Busca proporcionar apoyo claro y empático, basándose en el Código Deontológico y documentación ética relevante."
     },
     {
       heading: "Conocimiento",
