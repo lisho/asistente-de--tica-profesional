@@ -25,6 +25,7 @@ export interface GeminiChatHistoryItem {
 export interface AppMetadata { // This refers to the metadata.json content
   name: string; // General app name
   description: string; // General app description
+  version: string; // General app version
   requestFramePermissions: string[];
   prompt: string; // General prompt if any, specific prompts are per-assistant
 }

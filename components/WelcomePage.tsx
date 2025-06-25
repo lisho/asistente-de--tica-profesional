@@ -6,7 +6,7 @@ import { GEMINI_AVATAR_URL } from '../constants/appConfig';
 
 interface WelcomePageProps {
   onUserIdentified: (name: string, assistantKey: AssistantKey) => void;
-  initialAppMetadata: { name: string; description: string; }; 
+  initialAppMetadata: { name: string; description: string; version: string }; 
   onOpenHelpGuideModal: () => void;
 }
 
@@ -95,6 +95,7 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({ onUserIdentified, init
             className="w-24 h-24 md:w-28 md:h-28 rounded-full mx-auto mb-4 border-4 border-slate-300 object-cover"
           />
           <h1 className="text-2xl md:text-3xl font-bold text-slate-800 mb-2">{initialAppMetadata.name}</h1>
+          <h2 className="text-lg md:text-xl text-slate-600 mb-4">{initialAppMetadata.version}</h2>
           <p className="text-slate-600 mb-6 text-sm md:text-base">{initialAppMetadata.description}</p>
           
           <div className="mb-8">
