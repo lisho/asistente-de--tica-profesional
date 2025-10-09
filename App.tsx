@@ -409,12 +409,42 @@ const App: React.FC = () => {
         const timestampBlockHeight = LINE_HEIGHT_TIMESTAMP;
         const totalMessageHeight = timestampBlockHeight + PADDING_AFTER_TIMESTAMP + textBlockHeight;
 
-        if (y + totalMessageHeight > pageHeight - BOTTOM_MARGIN) { doc.addPage(); y = TOP_MARGIN_NEW_PAGE; }
-        doc.setFontSize(FONT_SIZE_TIMESTAMP); doc.setTextColor(128, 128, 128); doc.text(msg.timestamp.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }), MARGIN, y);
-        y += timestampBlockHeight + PADDING_AFTER_TIMESTAMP; doc.setTextColor(0, 0, 0);
-        if (y + textBlockHeight > pageHeight - BOTTOM_MARGIN) { doc.addPage(); y = TOP_MARGIN_NEW_PAGE; }
-        doc.setFontSize(FONT_SIZE_TEXT); doc.text(textLines, MARGIN, y);
-        y += textBlockHeight + PADDING_BETWEEN_MESSAGES;
+        // Verify if the block as a whole fits (timestamp + text)
+        if (y + totalMessageHeight > pageHeight - BOTTOM_MARGIN) {
+          doc.addPage();
+          y = TOP_MARGIN_NEW_PAGE;
+        }
+
+        // Draw timestamp
+        doc.setFontSize(FONT_SIZE_TIMESTAMP);
+        doc.setTextColor(128, 128, 128);
+        doc.text(msg.timestamp.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }), MARGIN, y);
+        y += timestampBlockHeight + PADDING_AFTER_TIMESTAMP;
+
+        // Draw text block by block
+        doc.setFontSize(FONT_SIZE_TEXT);
+        doc.setTextColor(0, 0, 0);
+
+        // Divide by blocks if text doesnt fit
+        let remainingLines = [...textLines];
+        while (remainingLines.length > 0) {
+          const availableHeight = pageHeight - BOTTOM_MARGIN - y;
+          const maxLinesThisPage = Math.floor(availableHeight / LINE_HEIGHT_TEXT);
+          const linesToPrint = remainingLines.slice(0, maxLinesThisPage);
+          doc.text(linesToPrint, MARGIN, y);
+          y += linesToPrint.length * LINE_HEIGHT_TEXT;
+
+          remainingLines = remainingLines.slice(maxLinesThisPage);
+
+          // If there is more lines, create a new page
+          if (remainingLines.length > 0) {
+            doc.addPage();
+            y = TOP_MARGIN_NEW_PAGE;
+          }
+        }
+
+        y += PADDING_BETWEEN_MESSAGES;
+        
       });
       doc.save(`chat_${selectedAssistantKey}_${currentConversation.id.substring(0,8)}_${new Date().toISOString().split('T')[0]}.pdf`);
     } catch (error) { console.error("Error generating PDF:", error); alert("Ocurrió un error al generar el PDF."); }
