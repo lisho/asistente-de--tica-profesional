@@ -213,6 +213,33 @@ export const Header: React.FC<HeaderProps> = ({
                 </svg>
                 Limpiar Chat
               </button>
+
+              {/* Botón Feedback */}
+              
+              <a
+                href="https://deontofeedback.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition shadow"
+                title="Enviar feedback"
+                aria-label="Enviar feedback"
+              > FeddBack
+                {/* Icono de comentario */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 3.866-3.582 7-8 7a8.909 8.909 0 0 1-4-.93L3 20l1.33-3.985A7.014 7.014 0 0 1 3 12c0-3.866 3.582-7 8-7s8 3.134 8 7z"
+                  />
+                </svg>
+              </a>
             </div>
           )}
         </div>
