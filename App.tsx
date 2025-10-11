@@ -16,7 +16,6 @@ import { HelpGuideModal } from './components/HelpGuideModal';
 import { Sidebar } from './components/Sidebar'; 
 import { jsPDF } from 'jspdf';
 import { ASSISTANT_REGISTRY, AssistantKey, AssistantTheme, getDefaultAssistantKey, getDefaultAssistantTheme } from './assistants';
-import FloatingButton from "./components/FloatingButton";
 
 const MIN_FONT_SIZE_LEVEL = -2; 
 const MAX_FONT_SIZE_LEVEL = 2;  
@@ -549,7 +548,7 @@ const App: React.FC = () => {
       />
       <FavoritesModal isOpen={isFavoritesModalOpen} onClose={handleCloseFavoritesModal} messages={currentFullConversation?.messages || []} favoriteMessageIds={favoriteMessageIds} onToggleFavorite={handleToggleFavorite} userName={userName} theme={currentTheme}/>
       <HelpGuideModal isOpen={isHelpGuideModalOpen} onClose={closeHelpGuideModal} theme={currentTheme || getDefaultAssistantTheme()} />
-      <FloatingButton />
+      
     </>
   );
 };

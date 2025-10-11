@@ -3,6 +3,7 @@ import React from 'react';
 import { AssistantTheme } from '../assistants';
 import { Conversation, BeforeInstallPromptEvent } from '../types';
 import { InstallPWAButton } from './InstallPWAButton';
+import SidebarFeedbackButton from "./SidebarFeedbackButton";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -134,6 +135,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <InstallPWAButton onClick={onInstallClick} theme={theme} isFixed={false} />
           </div>
         )}
+
+        <div className="p-4 flex justify-center">
+          <SidebarFeedbackButton />
+        </div>
 
         <div className={`p-4 ${deferredInstallPrompt && !isStandalone ? '' : 'mt-auto'} border-t border-slate-700 text-center`}>
           <p className="text-xs text-slate-400">&copy; {new Date().getFullYear()} {appMetadataName}</p>
