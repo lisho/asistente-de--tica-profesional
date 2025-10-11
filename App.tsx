@@ -578,6 +578,7 @@ const App: React.FC = () => {
       />
       <FavoritesModal isOpen={isFavoritesModalOpen} onClose={handleCloseFavoritesModal} messages={currentFullConversation?.messages || []} favoriteMessageIds={favoriteMessageIds} onToggleFavorite={handleToggleFavorite} userName={userName} theme={currentTheme}/>
       <HelpGuideModal isOpen={isHelpGuideModalOpen} onClose={closeHelpGuideModal} theme={currentTheme || getDefaultAssistantTheme()} />
+      
     </>
   );
 };
