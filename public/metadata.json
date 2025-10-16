@@ -1,7 +1,7 @@
 {
   "name": "Asistente de Ética Profesional",
   "description": "Un asistente de IA experto en trabajo social, deontología y ética profesional, basado en el conocimiento de la práctica en España. Elige tu asistente y navega complejos escenarios éticos y deontológicos.",
-  "version": "0.1",
+  "version": "1.0.0-alpha",
   "requestFramePermissions": [
     "microphone"
   ],

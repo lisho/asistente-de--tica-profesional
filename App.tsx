@@ -483,7 +483,7 @@ const App: React.FC = () => {
     <>
       <WelcomePage
         onUserIdentified={handleUserIdentified}
-        initialAppMetadata={{name: appMetadata.name, description: appMetadata.description}}
+        initialAppMetadata={{name: appMetadata.name, version: appMetadata.version, description: appMetadata.description}}
         onOpenHelpGuideModal={openHelpGuideModal}
       />
        <HelpGuideModal isOpen={isHelpGuideModalOpen} onClose={closeHelpGuideModal} theme={themeForModals} />
