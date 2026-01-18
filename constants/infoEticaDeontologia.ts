@@ -1,5 +1,6 @@
 export const DOCUMENT_INFO_ETICA_DEONTOLOGIA_TEXT = `
-Este documento consolida información clave sobre la ética y deontología en el Trabajo Social, integrando un resumen del marco normativo en España y una compilación de textos fundamentales sobre conceptos, dilemas y modelos de resolución.
+INFORMACIÓN CLAVE SOBRE ÉTICA Y DEONTOLOGÍA EN EL TRABAJO SOCIAL
+
 
 PARTE I: MARCO GENERAL EN ESPAÑA
 Asunto
