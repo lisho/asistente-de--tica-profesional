@@ -54,11 +54,23 @@ export async function* getAssistantResponseStream(
     for await (const chunk of stream) {
       yield chunk.text || "";
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini API error:", error);
-    // It's good practice to check the type of error and provide more specific messages
-    // For example, if (error instanceof GoogleGenAIError) { ... }
-    // For now, a generic message:
-    yield "Lo siento, he tenido un problema al conectar con mis servicios de inteligencia. Por favor, inténtalo más tarde.";
+
+    // Provide specific error messages based on the error type
+    if (error?.error?.code === 503 || error?.error?.status === "UNAVAILABLE") {
+      yield "Disculpa, en este momento no puedo acceder a mi base de conocimientos porque el servicio está sobrecargado. Espera unos minutos y pregúntame de nuevo, por favor. Te atenderé en cuanto pueda.";
+    } else if (error?.message?.includes("Incomplete JSON")) {
+      yield "Vaya, se ha interrumpido mi conexión mientras procesaba tu consulta. ¿Podrías repetir tu pregunta? Esta vez debería funcionar.";
+    } else if (error?.error?.code === 429 || error?.message?.includes("quota")) {
+      yield "Me temo que hemos alcanzado el límite de consultas por hoy. Tendrás que volver más tarde o contactar con el administrador del sistema.";
+    } else if (error?.message?.includes("API key") || error?.error?.code === 401) {
+      yield "Hay un problema con mi configuración que me impide responderte. Por favor, contacta con el administrador del sistema para que lo solucione.";
+    } else if (error?.message?.includes("network") || error?.message?.includes("fetch")) {
+      yield "Parece que no consigo conectarme. ¿Podrías verificar tu conexión a Internet? Cuando esté lista, estaré aquí para ayudarte.";
+    } else {
+      // Generic error message for unknown errors
+      yield "Lo siento, he tenido un problema inesperado y no he podido procesar tu consulta. Inténtalo de nuevo más tarde, y si el problema persiste, avisa al administrador.";
+    }
   }
 }
