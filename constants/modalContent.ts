@@ -2,6 +2,10 @@ export const ABOUT_EULOGIO_CONTENT = {
   title: "Acerca de Eulogio",
   sections: [
     {
+      heading: "Versión",
+      text: "Asistente de Ética Profesional - Versión 2.0.0-beta. Esta versión incluye mejoras en el análisis ético con metodologías de Sarah Banks, Ballestero y Reamer."
+    },
+    {
       heading: "Propósito",
       text: "Eulogio es un asistente virtual de IA diseñado para apoyar a profesionales y estudiantes de Trabajo Social en España. Su objetivo principal es ofrecer orientación y respuestas basadas en el Código Deontológico de la profesión y documentos relevantes sobre ética profesional."
     },
@@ -23,6 +27,10 @@ export const ABOUT_EULOGIO_CONTENT = {
 export const ABOUT_PEPI_CONTENT = {
   title: "Acerca de Pepi",
   sections: [
+    {
+      heading: "Versión",
+      text: "Asistente de Ética Profesional - Versión 2.0.0-beta. Esta versión incluye mejoras en el análisis ético con metodologías de Sarah Banks, Ballestero y Reamer."
+    },
     {
       heading: "Misión",
       text: "Pepi es una asistente virtual IA enfocada en apoyar a profesionales y estudiantes de Trabajo Social en España. Busca proporcionar apoyo claro y empático, basándose en el Código Deontológico y documentación ética relevante."
