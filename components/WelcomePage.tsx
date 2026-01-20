@@ -1,12 +1,12 @@
 
 import React, { useState } from 'react';
 import { EXAMPLE_PROMPTS } from '../constants/prompts';
-import { ASSISTANT_REGISTRY, AssistantKey, getDefaultAssistantTheme } from '../assistants'; 
+import { ASSISTANT_REGISTRY, AssistantKey, getDefaultAssistantTheme } from '../assistants';
 import { GEMINI_AVATAR_URL } from '../constants/appConfig';
 
 interface WelcomePageProps {
   onUserIdentified: (name: string, assistantKey: AssistantKey) => void;
-  initialAppMetadata: { name: string; description: string; version: string }; 
+  initialAppMetadata: { name: string; description: string; version: string };
   onOpenHelpGuideModal: () => void;
 }
 
@@ -16,7 +16,7 @@ const NEUTRAL_UI_THEME = {
   accentHoverBg: 'hover:bg-slate-600',
   accentText: 'text-white',
   focusRingColor: 'focus:ring-slate-500',
-  textColor: 'text-slate-500' // Para iconos de ideas para empezar
+  textColor: 'text-slate-600' // Mejorado de slate-500 a slate-600 para mejor contraste WCAG AA
 };
 
 export const WelcomePage: React.FC<WelcomePageProps> = ({ onUserIdentified, initialAppMetadata, onOpenHelpGuideModal }) => {
@@ -36,34 +36,34 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({ onUserIdentified, init
   };
 
   const handleAssistantCardClick = (key: AssistantKey) => {
-    setSelectedAssistantKey(key); 
-    setExplicitlySelectedKey(key); 
+    setSelectedAssistantKey(key);
+    setExplicitlySelectedKey(key);
   };
 
   // El tema de los elementos de la UI (botones, inputs) se basa en selectedAssistantKey.
   // Si no hay ninguno seleccionado, usa el tema neutro.
-  const themeForUiElements = selectedAssistantKey 
+  const themeForUiElements = selectedAssistantKey
     ? ASSISTANT_REGISTRY[selectedAssistantKey]
     : {
-        accentBg: NEUTRAL_UI_THEME.accentBg,
-        accentHoverBg: NEUTRAL_UI_THEME.accentHoverBg,
-        accentText: NEUTRAL_UI_THEME.accentText,
-        // Adaptar focus ring y text color según la estructura de AssistantTheme
-        accentBg_replace_bg_with_focus_ring: NEUTRAL_UI_THEME.focusRingColor, // Custom key for simplicity
-        accentBg_replace_bg_with_text: NEUTRAL_UI_THEME.textColor // Custom key for simplicity
-      };
-  
-  const actualThemeForUiElements = selectedAssistantKey 
-    ? ASSISTANT_REGISTRY[selectedAssistantKey]
-    : { 
-        ...getDefaultAssistantTheme(), // Fallback for other theme properties if needed
-        accentBg: NEUTRAL_UI_THEME.accentBg,
-        accentHoverBg: NEUTRAL_UI_THEME.accentHoverBg,
-        accentText: NEUTRAL_UI_THEME.accentText,
-      };
+      accentBg: NEUTRAL_UI_THEME.accentBg,
+      accentHoverBg: NEUTRAL_UI_THEME.accentHoverBg,
+      accentText: NEUTRAL_UI_THEME.accentText,
+      // Adaptar focus ring y text color según la estructura de AssistantTheme
+      accentBg_replace_bg_with_focus_ring: NEUTRAL_UI_THEME.focusRingColor, // Custom key for simplicity
+      accentBg_replace_bg_with_text: NEUTRAL_UI_THEME.textColor // Custom key for simplicity
+    };
 
-  const focusRingClass = selectedAssistantKey 
-    ? ASSISTANT_REGISTRY[selectedAssistantKey].accentBg.replace('bg-','focus:ring-') 
+  const actualThemeForUiElements = selectedAssistantKey
+    ? ASSISTANT_REGISTRY[selectedAssistantKey]
+    : {
+      ...getDefaultAssistantTheme(), // Fallback for other theme properties if needed
+      accentBg: NEUTRAL_UI_THEME.accentBg,
+      accentHoverBg: NEUTRAL_UI_THEME.accentHoverBg,
+      accentText: NEUTRAL_UI_THEME.accentText,
+    };
+
+  const focusRingClass = selectedAssistantKey
+    ? ASSISTANT_REGISTRY[selectedAssistantKey].accentBg.replace('bg-', 'focus:ring-')
     : NEUTRAL_UI_THEME.focusRingColor;
 
   const examplePromptIconColor = selectedAssistantKey
@@ -74,7 +74,7 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({ onUserIdentified, init
   const avatarUrlToDisplay = explicitlySelectedKey
     ? ASSISTANT_REGISTRY[explicitlySelectedKey].avatarUrl
     : GEMINI_AVATAR_URL;
-  
+
   const altTextForAvatar = explicitlySelectedKey
     ? `Avatar de ${ASSISTANT_REGISTRY[explicitlySelectedKey].name}`
     : "Avatar del Asistente de IA";
@@ -97,7 +97,7 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({ onUserIdentified, init
           <h1 className="text-2xl md:text-3xl font-bold text-slate-800 mb-2">{initialAppMetadata.name}</h1>
           <h2 className="text-lg md:text-xl text-slate-600 mb-4">{initialAppMetadata.version}</h2>
           <p className="text-slate-600 mb-6 text-sm md:text-base">{initialAppMetadata.description}</p>
-          
+
           <div className="mb-8">
             <h2 className="text-lg font-semibold text-slate-700 mb-3">Elige tu asistente:</h2>
             <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
@@ -108,15 +108,14 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({ onUserIdentified, init
                   <button
                     key={key}
                     onClick={() => handleAssistantCardClick(key)}
-                    className={`p-4 rounded-lg border-2 flex-1 text-left transition-all duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 ${
-                      isCurrentlySelectedForStyling
-                        ? `${assistant.accentBg} ${assistant.accentText} border-transparent shadow-lg ring-offset-2 ring-2 ${assistant.accentBg.replace('bg-','ring-')}`
-                        : 'bg-slate-50 hover:bg-slate-100 border-slate-300 text-slate-700'
-                    }`}
+                    className={`p-4 rounded-lg border-2 flex-1 text-left transition-all duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 ${isCurrentlySelectedForStyling
+                      ? `${assistant.accentBg} ${assistant.accentText} border-transparent shadow-lg ring-offset-2 ring-2 ${assistant.accentBg.replace('bg-', 'ring-')}`
+                      : 'bg-slate-50 hover:bg-slate-100 border-slate-300 text-slate-700'
+                      }`}
                     aria-pressed={isCurrentlySelectedForStyling}
                   >
                     <div className="flex items-center">
-                      <img src={assistant.avatarUrl} alt={assistant.name} className="w-10 h-10 rounded-full mr-3 border-2 border-white object-cover"/>
+                      <img src={assistant.avatarUrl} alt={assistant.name} className="w-10 h-10 rounded-full mr-3 border-2 border-white object-cover" />
                       <div>
                         <p className={`font-semibold ${isCurrentlySelectedForStyling ? '' : 'text-slate-800'}`}>{assistant.name}</p>
                         <p className={`text-xs ${isCurrentlySelectedForStyling ? 'opacity-90' : 'text-slate-500'}`}>{assistant.tagline}</p>
@@ -127,15 +126,17 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({ onUserIdentified, init
               })}
             </div>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="userName" className="block text-sm font-medium text-slate-700 mb-1 sr-only">
+              <label htmlFor="userName" className="block text-sm font-medium text-slate-700 mb-2 text-left">
                 Tu nombre
               </label>
               <input
                 id="userName"
                 type="text"
+                name="name"
+                autoComplete="name"
                 value={nameInput}
                 onChange={(e) => setNameInput(e.target.value)}
                 placeholder="Escribe tu nombre para comenzar"
@@ -156,7 +157,8 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({ onUserIdentified, init
           <div className="mt-8">
             <button
               onClick={onOpenHelpGuideModal}
-              className={`text-sm ${selectedAssistantKey ? ASSISTANT_REGISTRY[selectedAssistantKey].accentBg.replace('bg-','text-') : NEUTRAL_UI_THEME.textColor} hover:underline focus:outline-none focus:ring-2 ${focusRingClass} focus:ring-offset-1 rounded p-1`}
+              className={`text-sm ${selectedAssistantKey ? ASSISTANT_REGISTRY[selectedAssistantKey].accentBg.replace('bg-', 'text-') : NEUTRAL_UI_THEME.textColor} hover:underline focus:outline-none focus:ring-2 ${focusRingClass} focus:ring-offset-1 rounded p-1`}
+              aria-label="Abrir guía de uso y leyenda de botones"
             >
               ❓ Guía de Uso y Leyenda de Botones
             </button>
