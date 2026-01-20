@@ -78,15 +78,15 @@ const renderNonCodeText = (textSegment: string, baseKey: string): React.ReactNod
       let contentForListItem = [...currentLineNodes];
       if (contentForListItem.length > 0 && typeof contentForListItem[0] === 'string') {
         const firstNodeStr = contentForListItem[0] as string;
-        const strippedFirstNode = firstNodeStr.replace(/^(\s*)[*-]\s+/, '$1'); 
-        
+        const strippedFirstNode = firstNodeStr.replace(/^(\s*)[*-]\s+/, '$1');
+
         if (strippedFirstNode !== firstNodeStr) {
           contentForListItem[0] = strippedFirstNode;
-        } else if (firstNodeStr.trim().startsWith('* ') || firstNodeStr.trim().startsWith('- ')) { 
-           contentForListItem[0] = firstNodeStr.trim().substring(2);
+        } else if (firstNodeStr.trim().startsWith('* ') || firstNodeStr.trim().startsWith('- ')) {
+          contentForListItem[0] = firstNodeStr.trim().substring(2);
         }
       }
-      
+
       segmentNodes.push(
         <div key={`${baseKey}-li-${lineIdx}-${innerKeyCounter++}`} className="flex items-start my-0.5" role="listitem">
           <span aria-hidden="true" className="mr-2 ml-4 text-slate-700 select-none">•</span>
@@ -94,8 +94,8 @@ const renderNonCodeText = (textSegment: string, baseKey: string): React.ReactNod
         </div>
       );
     } else {
-      if (currentLineNodes.some(node => (typeof node === 'string' && node.trim() !== '') || typeof node !== 'string' )) {
-         segmentNodes.push(<div key={`${baseKey}-p-${lineIdx}-${innerKeyCounter++}`}>{currentLineNodes}</div>);
+      if (currentLineNodes.some(node => (typeof node === 'string' && node.trim() !== '') || typeof node !== 'string')) {
+        segmentNodes.push(<div key={`${baseKey}-p-${lineIdx}-${innerKeyCounter++}`}>{currentLineNodes}</div>);
       }
     }
   });
@@ -133,14 +133,14 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme, isFavo
     try {
       await navigator.clipboard.writeText(message.text);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000); 
+      setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy text: ', err);
     }
   };
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     onToggleFavorite(message.id);
   };
 
@@ -152,39 +152,33 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme, isFavo
   return (
     <div className={`group flex items-end space-x-2 ${isUser ? 'justify-end' : 'justify-start'}`} role="log">
       {!isUser && (
-        <img 
-          src={message.avatar || theme.avatarUrl} 
-          alt={`Avatar de ${theme.name}`} 
-          className="w-8 h-8 rounded-full object-cover self-start flex-shrink-0" 
+        <img
+          src={message.avatar || theme.avatarUrl}
+          alt={`Avatar de ${theme.name}`}
+          className="w-8 h-8 rounded-full object-cover self-start flex-shrink-0"
         />
       )}
-      <div 
-        className={`relative max-w-md lg:max-w-lg p-3 rounded-lg shadow ${
-          isUser 
-            ? `${userBubbleColor} ${userTextColor} rounded-br-none` 
+      <div
+        className={`relative max-w-md lg:max-w-lg p-3 rounded-lg shadow ${isUser
+            ? `${userBubbleColor} ${userTextColor} rounded-br-none`
             : `${aiBubbleColor} ${aiTextColor} rounded-bl-none`
-        }`}
+          }`}
       >
         <div className="text-sm prose-sm prose-slate max-w-none message-text-content">
-           {/* Theme parameter removed from renderMarkdown call */}
-           {renderMarkdown(message.text)}
+          {/* Theme parameter removed from renderMarkdown call */}
+          {renderMarkdown(message.text)}
         </div>
-        <p className={`text-xs mt-1 timestamp-text ${
-            isUser 
-                ? (userTextColor === 'text-white' ? 'text-opacity-75 text-white' : 'text-slate-500')
-                : (aiTextColor.includes('slate') || aiTextColor.includes('gray') || aiTextColor.includes('neutral') ? 'text-slate-500' : 'opacity-70') 
-            } text-${isUser ? 'right' : 'left'}`}
-        >
+        <p className={`text-xs mt-1 timestamp-text text-slate-600 ${isUser ? 'opacity-80' : 'opacity-70'} text-${isUser ? 'right' : 'left'}`}>
           {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </p>
-        
+
         {!isUser && message.text && (
           <div className="absolute -top-3 -right-3 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity focus-within:opacity-100">
             <button
               onClick={handleFavoriteClick}
               title={isFavorite ? "Quitar de favoritos" : "Guardar como favorito"}
               aria-label={isFavorite ? "Quitar este mensaje de favoritos" : "Guardar este mensaje como favorito"}
-              className={`p-1.5 bg-slate-300 hover:bg-slate-400 rounded-full text-slate-700 focus:opacity-100 outline-none focus:ring-2 ${theme.accentBg.replace('bg-','focus:ring-')}`}
+              className={`p-1.5 bg-slate-300 hover:bg-slate-400 rounded-full text-slate-700 focus:opacity-100 outline-none focus:ring-2 ${theme.accentBg.replace('bg-', 'focus:ring-')}`}
             >
               {isFavorite ? (
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-yellow-500">
@@ -200,7 +194,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme, isFavo
               onClick={handleCopy}
               title={copied ? "Copiado!" : "Copiar mensaje"}
               aria-label={copied ? "Mensaje copiado al portapapeles" : `Copiar mensaje de ${theme.name} al portapapeles`}
-              className={`p-1.5 bg-slate-300 hover:bg-slate-400 rounded-full text-slate-700 focus:opacity-100 outline-none focus:ring-2 ${theme.accentBg.replace('bg-','focus:ring-')}`}
+              className={`p-1.5 bg-slate-300 hover:bg-slate-400 rounded-full text-slate-700 focus:opacity-100 outline-none focus:ring-2 ${theme.accentBg.replace('bg-', 'focus:ring-')}`}
             >
               {copied ? (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-green-600">
@@ -216,9 +210,9 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme, isFavo
         )}
       </div>
       {isUser && (
-         <div className={`w-8 h-8 rounded-full ${userBubbleColor} ${userTextColor} flex items-center justify-center font-semibold text-sm self-start flex-shrink-0`} aria-label="Tu avatar">
-           TÚ
-         </div>
+        <div className={`w-8 h-8 rounded-full ${userBubbleColor} ${userTextColor} flex items-center justify-center font-semibold text-sm self-start flex-shrink-0`} aria-label="Tu avatar">
+          TÚ
+        </div>
       )}
     </div>
   );

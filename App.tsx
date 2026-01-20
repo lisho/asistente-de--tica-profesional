@@ -13,13 +13,14 @@ import { FavoritesModal } from './components/FavoritesModal';
 import { InstallPWAButton } from './components/InstallPWAButton';
 import { OfflineBanner } from './components/OfflineBanner';
 import { HelpGuideModal } from './components/HelpGuideModal';
-import { Sidebar } from './components/Sidebar'; 
+import { Sidebar } from './components/Sidebar';
+import { SkipLink } from './components/SkipLink';
 import { jsPDF } from 'jspdf';
 import { ASSISTANT_REGISTRY, AssistantKey, AssistantTheme, getDefaultAssistantKey, getDefaultAssistantTheme } from './assistants';
 
-const MIN_FONT_SIZE_LEVEL = -2; 
-const MAX_FONT_SIZE_LEVEL = 2;  
-const DEFAULT_FONT_SIZE_LEVEL = 0; 
+const MIN_FONT_SIZE_LEVEL = -2;
+const MAX_FONT_SIZE_LEVEL = 2;
+const DEFAULT_FONT_SIZE_LEVEL = 0;
 
 const App: React.FC = () => {
   const [appMetadata, setAppMetadata] = useState<AppMetadata | null>(null);
@@ -29,15 +30,15 @@ const App: React.FC = () => {
 
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [currentConversationId, setCurrentConversationId] = useState<string | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]); 
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true); 
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
   const [showClearConfirmationModal, setShowClearConfirmationModal] = useState(false);
-  const [showDeleteConversationModal, setShowDeleteConversationModal] = useState<string | null>(null); 
+  const [showDeleteConversationModal, setShowDeleteConversationModal] = useState<string | null>(null);
   const [favoriteMessageIds, setFavoriteMessageIds] = useState<string[]>([]);
   const [isFavoritesModalOpen, setIsFavoritesModalOpen] = useState(false);
 
@@ -69,15 +70,16 @@ const App: React.FC = () => {
       timestamp: new Date(),
     };
   };
-  
+
   useEffect(() => {
     fetch('metadata.json')
       .then(response => response.json())
       .then((data: AppMetadata) => setAppMetadata(data))
       .catch(error => {
         console.error("Could not load app metadata:", error);
-        setAppMetadata({ 
+        setAppMetadata({
           name: "Asistente (Error)",
+          version: "Error",
           description: "No se pudieron cargar los detalles. Intente recargar.",
           requestFramePermissions: [],
           prompt: ""
@@ -88,7 +90,7 @@ const App: React.FC = () => {
     const handleOffline = () => setIsOnline(false);
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
-    
+
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
@@ -103,7 +105,7 @@ const App: React.FC = () => {
       try {
         const parsedFavorites = JSON.parse(storedFavorites);
         if (Array.isArray(parsedFavorites)) setFavoriteMessageIds(parsedFavorites);
-      } catch (error) { 
+      } catch (error) {
         console.error("Error parsing favorites:", error);
         localStorage.removeItem('favoriteMessageIds');
       }
@@ -116,7 +118,7 @@ const App: React.FC = () => {
         localStorage.removeItem('fontSizeLevel');
       }
     }
-    
+
     // Ensure currentTheme is set to a default if no user/assistant is loaded.
     // This is primarily for components like HelpGuideModal shown from WelcomePage.
     if (!selectedAssistantKey || !ASSISTANT_REGISTRY[selectedAssistantKey]) {
@@ -151,7 +153,7 @@ const App: React.FC = () => {
     return () => window.removeEventListener('appinstalled', handleAppInstalled);
   }, []);
   useEffect(() => { setIsStandalone(window.matchMedia('(display-mode: standalone)').matches); }, []);
-  
+
   const scrollToBottom = () => { chatEndRef.current?.scrollIntoView({ behavior: "smooth" }); };
   useEffect(() => { if (messages.length > 0) scrollToBottom(); }, [messages]);
 
@@ -162,7 +164,7 @@ const App: React.FC = () => {
 
       setUserName(trimmedName);
       setSelectedAssistantKey(assistantKey);
-      setCurrentTheme(theme); 
+      setCurrentTheme(theme);
       localStorage.setItem('userName', trimmedName);
       localStorage.setItem('selectedAssistantKey', assistantKey);
 
@@ -190,7 +192,7 @@ const App: React.FC = () => {
       if (activeConv) {
         setCurrentConversationId(activeConv.id);
         setMessages(activeConv.messages);
-      } else { 
+      } else {
         const newConv = createNewConversationObject(trimmedName, assistantKey, theme);
         setConversations([newConv]);
         setCurrentConversationId(newConv.id);
@@ -211,23 +213,23 @@ const App: React.FC = () => {
     };
 
     setMessages(prev => [...prev, newUserMessage]);
-    setConversations(prevConvs => prevConvs.map(conv => 
-      conv.id === currentConversationId 
+    setConversations(prevConvs => prevConvs.map(conv =>
+      conv.id === currentConversationId
         ? { ...conv, messages: [...conv.messages, newUserMessage], timestamp: new Date() }
         : conv
     ));
 
     if (!isOnline) {
       const offlineAIMsg: Message = {
-          id: `ai-offline-${Date.now()}`,
-          text: "Parece que estás desconectado. No puedo procesar tu mensaje ahora mismo. Por favor, revisa tu conexión a internet.",
-          sender: Sender.AI,
-          timestamp: new Date(),
-          avatar: currentTheme.avatarUrl,
+        id: `ai-offline-${Date.now()}`,
+        text: "Parece que estás desconectado. No puedo procesar tu mensaje ahora mismo. Por favor, revisa tu conexión a internet.",
+        sender: Sender.AI,
+        timestamp: new Date(),
+        avatar: currentTheme.avatarUrl,
       };
       setMessages(prev => [...prev, offlineAIMsg]);
-      setConversations(prevConvs => prevConvs.map(conv => 
-        conv.id === currentConversationId 
+      setConversations(prevConvs => prevConvs.map(conv =>
+        conv.id === currentConversationId
           ? { ...conv, messages: [...conv.messages, offlineAIMsg], timestamp: new Date() }
           : conv
       ));
@@ -237,20 +239,20 @@ const App: React.FC = () => {
     setIsLoading(true);
     const currentConversation = conversations.find(c => c.id === currentConversationId);
     const historyForGemini: GeminiChatHistoryItem[] = (currentConversation?.messages || [])
-      .filter(msg => msg.id !== newUserMessage.id) 
+      .filter(msg => msg.id !== newUserMessage.id)
       .map(msg => ({
         role: msg.sender === Sender.USER ? 'user' : 'model',
         parts: [{ text: msg.text }],
-    }));
-    
+      }));
+
     const aiMessageId = `ai-${Date.now()}`;
     const placeholderAiMessage: Message = {
       id: aiMessageId, text: '', sender: Sender.AI, timestamp: new Date(), avatar: currentTheme.avatarUrl
     };
 
     setMessages(prev => [...prev, placeholderAiMessage]);
-    setConversations(prevConvs => prevConvs.map(conv => 
-      conv.id === currentConversationId 
+    setConversations(prevConvs => prevConvs.map(conv =>
+      conv.id === currentConversationId
         ? { ...conv, messages: [...conv.messages, placeholderAiMessage], timestamp: new Date() }
         : conv
     ));
@@ -261,20 +263,20 @@ const App: React.FC = () => {
       for await (const chunk of getAssistantResponseStream(userMessageText, geminiHistory, currentTheme.systemInstruction)) {
         accumulatedResponse += chunk;
         setMessages(prevMsgs => prevMsgs.map(msg =>
-            msg.id === aiMessageId ? { ...msg, text: accumulatedResponse } : msg
+          msg.id === aiMessageId ? { ...msg, text: accumulatedResponse } : msg
         ));
       }
     } catch (error) {
       console.error("Error getting AI response:", error);
       accumulatedResponse = "Lo siento, he encontrado un error al procesar tu solicitud. Por favor, inténtalo de nuevo.";
       setMessages(prevMsgs => prevMsgs.map(msg =>
-          msg.id === aiMessageId ? { ...msg, text: accumulatedResponse } : msg
+        msg.id === aiMessageId ? { ...msg, text: accumulatedResponse } : msg
       ));
     } finally {
       setIsLoading(false);
       setConversations(prevConvs => prevConvs.map(conv => {
         if (conv.id === currentConversationId) {
-          const updatedMessages = conv.messages.map(msg => 
+          const updatedMessages = conv.messages.map(msg =>
             msg.id === aiMessageId ? { ...msg, text: accumulatedResponse } : msg
           );
           return { ...conv, messages: updatedMessages, timestamp: new Date() };
@@ -287,10 +289,10 @@ const App: React.FC = () => {
   const handleNewConversation = useCallback(() => {
     if (!userName || !selectedAssistantKey) return;
     const newConv = createNewConversationObject(userName, selectedAssistantKey, currentTheme);
-    setConversations(prev => [newConv, ...prev]); 
+    setConversations(prev => [newConv, ...prev]);
     setCurrentConversationId(newConv.id);
     setMessages(newConv.messages);
-    if (window.innerWidth < 768) setIsSidebarOpen(false); 
+    if (window.innerWidth < 768) setIsSidebarOpen(false);
   }, [userName, selectedAssistantKey, currentTheme]);
 
   const handleLoadConversation = useCallback((conversationId: string) => {
@@ -298,10 +300,10 @@ const App: React.FC = () => {
     if (conversationToLoad) {
       setCurrentConversationId(conversationId);
       setMessages(conversationToLoad.messages);
-      if (window.innerWidth < 768) setIsSidebarOpen(false); 
+      if (window.innerWidth < 768) setIsSidebarOpen(false);
     }
   }, [conversations]);
-  
+
   const handleRequestDeleteConversation = (conversationId: string) => {
     setShowDeleteConversationModal(conversationId);
   };
@@ -311,11 +313,11 @@ const App: React.FC = () => {
     const conversationIdToDelete = showDeleteConversationModal;
 
     setConversations(prev => prev.filter(c => c.id !== conversationIdToDelete));
-    
+
     if (currentConversationId === conversationIdToDelete) {
       const remainingConversations = conversations.filter(c => c.id !== conversationIdToDelete);
       if (remainingConversations.length > 0) {
-        const latestConversation = [...remainingConversations].sort((a,b) => b.timestamp.getTime() - a.timestamp.getTime())[0];
+        const latestConversation = [...remainingConversations].sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())[0];
         setCurrentConversationId(latestConversation.id);
         setMessages(latestConversation.messages);
       } else {
@@ -330,19 +332,19 @@ const App: React.FC = () => {
 
   const handleRequestClearChat = () => setShowClearConfirmationModal(true);
 
-  const handleConfirmClearChat = () => { 
+  const handleConfirmClearChat = () => {
     if (!currentConversationId || !userName || !selectedAssistantKey) return;
     const newMessages: Message[] = [{
-        id: `initial-cleared-${currentConversationId}`,
-        text: currentTheme.initialGreeting(userName),
-        sender: Sender.AI,
-        timestamp: new Date(),
-        avatar: currentTheme.avatarUrl,
+      id: `initial-cleared-${currentConversationId}`,
+      text: currentTheme.initialGreeting(userName),
+      sender: Sender.AI,
+      timestamp: new Date(),
+      avatar: currentTheme.avatarUrl,
     }];
     setMessages(newMessages);
     setConversations(prevConvs => prevConvs.map(conv =>
       conv.id === currentConversationId
-        ? { ...conv, messages: newMessages, title: formatConversationTitle(new Date()), timestamp: new Date() } 
+        ? { ...conv, messages: newMessages, title: formatConversationTitle(new Date()), timestamp: new Date() }
         : conv
     ));
     setShowClearConfirmationModal(false);
@@ -369,8 +371,8 @@ const App: React.FC = () => {
     setUserName(null);
     setSelectedAssistantKey(null);
     // currentTheme will reset to default via useEffect or when WelcomePage shows
-    setCurrentConversationId(null); 
-    setMessages([]); 
+    setCurrentConversationId(null);
+    setMessages([]);
   };
 
   const handleDownloadChatPdf = () => {
@@ -396,7 +398,7 @@ const App: React.FC = () => {
       doc.text(currentTheme.name, pageWidth / 2, y, { align: 'center' });
       y += FONT_SIZE_TITLE + PADDING_AFTER_TITLE;
       doc.setFontSize(FONT_SIZE_SUBTITLE);
-      doc.text(`Conversación con ${userName} (${currentConversation.title})`, pageWidth / 2, y, { align: 'center'});
+      doc.text(`Conversación con ${userName} (${currentConversation.title})`, pageWidth / 2, y, { align: 'center' });
       y += FONT_SIZE_SUBTITLE + PADDING_AFTER_SUBTITLE;
 
       currentConversation.messages.forEach((msg) => {
@@ -444,24 +446,24 @@ const App: React.FC = () => {
         }
 
         y += PADDING_BETWEEN_MESSAGES;
-        
+
       });
-      doc.save(`chat_${selectedAssistantKey}_${currentConversation.id.substring(0,8)}_${new Date().toISOString().split('T')[0]}.pdf`);
+      doc.save(`chat_${selectedAssistantKey}_${currentConversation.id.substring(0, 8)}_${new Date().toISOString().split('T')[0]}.pdf`);
     } catch (error) { console.error("Error generating PDF:", error); alert("Ocurrió un error al generar el PDF."); }
   };
 
   const handleInstallClick = async () => {
     if (!deferredInstallPrompt) return;
-    deferredInstallPrompt.prompt(); 
+    deferredInstallPrompt.prompt();
     const { outcome } = await deferredInstallPrompt.userChoice;
-    setDeferredInstallPrompt(null); 
+    setDeferredInstallPrompt(null);
   };
 
   const handleIncreaseFontSize = () => setFontSizeLevel(prev => Math.min(prev + 1, MAX_FONT_SIZE_LEVEL));
   const handleDecreaseFontSize = () => setFontSizeLevel(prev => Math.max(prev - 1, MIN_FONT_SIZE_LEVEL));
   const getFontSizeClass = (level: number): string => {
-    if (level <= -2) return 'chat-font-xs'; if (level === -1) return 'chat-font-sm'; 
-    if (level === 0) return 'chat-font-md'; if (level === 1) return 'chat-font-lg'; 
+    if (level <= -2) return 'chat-font-xs'; if (level === -1) return 'chat-font-sm';
+    if (level === 0) return 'chat-font-md'; if (level === 1) return 'chat-font-lg';
     if (level >= 2) return 'chat-font-xl'; return 'chat-font-md';
   };
 
@@ -480,24 +482,25 @@ const App: React.FC = () => {
   if (!userName || !selectedAssistantKey || !ASSISTANT_REGISTRY[selectedAssistantKey] || !currentConversationId) {
     const themeForModals = currentTheme || getDefaultAssistantTheme();
     return (
-    <>
-      <WelcomePage
-        onUserIdentified={handleUserIdentified}
-        initialAppMetadata={{name: appMetadata.name, version: appMetadata.version, description: appMetadata.description}}
-        onOpenHelpGuideModal={openHelpGuideModal}
-      />
-       <HelpGuideModal isOpen={isHelpGuideModalOpen} onClose={closeHelpGuideModal} theme={themeForModals} />
-       {deferredInstallPrompt && !isStandalone && (
-        <InstallPWAButton onClick={handleInstallClick} theme={themeForModals} isFixed={true}/>
-      )}
-    </>
+      <>
+        <WelcomePage
+          onUserIdentified={handleUserIdentified}
+          initialAppMetadata={{ name: appMetadata.name, version: appMetadata.version, description: appMetadata.description }}
+          onOpenHelpGuideModal={openHelpGuideModal}
+        />
+        <HelpGuideModal isOpen={isHelpGuideModalOpen} onClose={closeHelpGuideModal} theme={themeForModals} />
+        {deferredInstallPrompt && !isStandalone && (
+          <InstallPWAButton onClick={handleInstallClick} theme={themeForModals} isFixed={true} />
+        )}
+      </>
     );
   }
-  
+
   const currentFullConversation = conversations.find(c => c.id === currentConversationId);
 
   return (
     <>
+      <SkipLink />
       {!isOnline && <OfflineBanner theme={currentTheme} />}
       <div className={`flex h-screen overflow-hidden ${getFontSizeClass(fontSizeLevel)}`}>
         <Sidebar
@@ -506,7 +509,7 @@ const App: React.FC = () => {
           theme={currentTheme}
           appMetadataName={appMetadata.name}
           conversations={conversations.filter(c => c.userName === userName && c.assistantKey === selectedAssistantKey)
-                                      .sort((a,b) => b.timestamp.getTime() - a.timestamp.getTime())}
+            .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())}
           currentConversationId={currentConversationId}
           onNewConversation={handleNewConversation}
           onLoadConversation={handleLoadConversation}
@@ -520,7 +523,7 @@ const App: React.FC = () => {
         <div className={`flex-1 flex flex-col bg-white shadow-2xl overflow-hidden max-w-full
                          transition-all duration-300 ease-in-out
                          ${isSidebarOpen ? 'md:ml-72' : 'ml-0'}`}>
-          <Header 
+          <Header
             theme={currentTheme}
             onRequestClearChat={handleRequestClearChat}
             onOpenAboutModal={openAboutModal}
@@ -533,23 +536,23 @@ const App: React.FC = () => {
             minFontSizeLevel={MIN_FONT_SIZE_LEVEL}
             maxFontSizeLevel={MAX_FONT_SIZE_LEVEL}
             onOpenHelpGuideModal={openHelpGuideModal}
-            onToggleSidebar={toggleSidebar} 
-            isSidebarPresent={true} 
+            onToggleSidebar={toggleSidebar}
+            isSidebarPresent={true}
           />
-          <div className="flex-grow p-4 md:p-6 overflow-y-auto space-y-4 bg-slate-50">
+          <div id="main-content" className="flex-grow p-4 md:p-6 overflow-y-auto space-y-4 bg-slate-50">
             {messages.map((msg) => (
-              <ChatMessage 
-                key={msg.id} 
+              <ChatMessage
+                key={msg.id}
                 message={msg}
                 theme={currentTheme}
                 isFavorite={favoriteMessageIds.includes(msg.id)}
                 onToggleFavorite={handleToggleFavorite}
               />
             ))}
-            {isLoading && messages[messages.length-1]?.sender === Sender.AI && messages[messages.length-1]?.text === '' && (
+            {isLoading && messages[messages.length - 1]?.sender === Sender.AI && messages[messages.length - 1]?.text === '' && (
               <div className="flex justify-start items-center space-x-2">
                 <img src={currentTheme.avatarUrl} alt={currentTheme.name} className="w-10 h-10 rounded-full" />
-                <LoadingSpinner /> 
+                <LoadingSpinner />
               </div>
             )}
             <div ref={chatEndRef} />
@@ -567,18 +570,18 @@ const App: React.FC = () => {
         message="¿Estás seguro de que quieres borrar todos los mensajes de esta conversación? Esta acción no se puede deshacer y reiniciará la conversación actual."
         theme={currentTheme}
       />
-       <ConfirmationModal
+      <ConfirmationModal
         isOpen={!!showDeleteConversationModal}
         onClose={() => setShowDeleteConversationModal(null)}
         onConfirm={handleConfirmDeleteConversation}
         title="Confirmar Eliminación de Conversación"
-        message={`¿Estás seguro de que quieres eliminar permanentemente la conversación "${conversations.find(c=>c.id===showDeleteConversationModal)?.title || ''}"? Esta acción no se puede deshacer.`}
+        message={`¿Estás seguro de que quieres eliminar permanentemente la conversación "${conversations.find(c => c.id === showDeleteConversationModal)?.title || ''}"? Esta acción no se puede deshacer.`}
         theme={currentTheme}
         confirmButtonText="Eliminar"
       />
-      <FavoritesModal isOpen={isFavoritesModalOpen} onClose={handleCloseFavoritesModal} messages={currentFullConversation?.messages || []} favoriteMessageIds={favoriteMessageIds} onToggleFavorite={handleToggleFavorite} userName={userName} theme={currentTheme}/>
+      <FavoritesModal isOpen={isFavoritesModalOpen} onClose={handleCloseFavoritesModal} messages={currentFullConversation?.messages || []} favoriteMessageIds={favoriteMessageIds} onToggleFavorite={handleToggleFavorite} userName={userName} theme={currentTheme} />
       <HelpGuideModal isOpen={isHelpGuideModalOpen} onClose={closeHelpGuideModal} theme={currentTheme || getDefaultAssistantTheme()} />
-      
+
     </>
   );
 };
