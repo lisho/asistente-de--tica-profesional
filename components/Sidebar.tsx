@@ -13,11 +13,12 @@ interface SidebarProps {
   currentConversationId: string | null;
   onNewConversation: () => void;
   onLoadConversation: (id: string) => void;
-  onDeleteConversation: (id: string) => void; 
+  onDeleteConversation: (id: string) => void;
   userName: string | null;
   deferredInstallPrompt: BeforeInstallPromptEvent | null;
   isStandalone: boolean;
   onInstallClick: () => void;
+  onOpenWelcomeInstructions: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -33,18 +34,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
   userName,
   deferredInstallPrompt,
   isStandalone,
-  onInstallClick
+  onInstallClick,
+  onOpenWelcomeInstructions
 }) => {
-  const sidebarBg = 'bg-slate-800'; 
+  const sidebarBg = 'bg-slate-800';
   const textColor = 'text-slate-100';
   const hoverBg = 'hover:bg-slate-700';
-  const activeBg = 'bg-slate-600'; 
+  const activeBg = 'bg-slate-600';
 
   return (
     <>
       {/* Overlay for mobile when sidebar is open */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
           onClick={onToggle}
           aria-hidden="true"
@@ -52,21 +54,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       {/* Sidebar */}
-      <aside 
+      <aside
         className={`fixed top-0 left-0 h-full ${sidebarBg} ${textColor} w-72 flex flex-col shadow-lg z-40
                     transform transition-transform duration-300 ease-in-out 
                     ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
         aria-label="Menú de conversaciones"
       >
         {/* Close button for mobile (remains visible only on mobile due to parent md:hidden on overlay, good for UX) */}
-        <button 
-            onClick={onToggle} 
-            className="md:hidden absolute top-3 right-3 text-slate-300 hover:text-white p-1 z-50" // z-50 to be above content
-            aria-label="Cerrar menú"
+        <button
+          onClick={onToggle}
+          className="md:hidden absolute top-3 right-3 text-slate-300 hover:text-white p-1 z-50" // z-50 to be above content
+          aria-label="Cerrar menú"
         >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
 
         <div className="p-5 text-center border-b border-slate-700">
@@ -112,7 +114,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <span className="truncate flex-grow" title={conv.title}>{conv.title}</span>
                 <button
                   onClick={(e) => {
-                    e.stopPropagation(); 
+                    e.stopPropagation();
                     onDeleteConversation(conv.id);
                   }}
                   title="Eliminar conversación"
@@ -128,15 +130,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
             ))
           )}
         </div>
-        
+
+        {/* Botón de instalación PWA (si aplica) */}
         {deferredInstallPrompt && !isStandalone && (
           <div className="p-4 mt-auto">
             <InstallPWAButton onClick={onInstallClick} theme={theme} isFixed={false} />
           </div>
         )}
 
-        <div className={`p-4 ${deferredInstallPrompt && !isStandalone ? '' : 'mt-auto'} border-t border-slate-700 text-center`}>
-          <p className="text-xs text-slate-400">&copy; {new Date().getFullYear()} {appMetadataName}</p>
+        {/* Botón de instrucciones - ANTES de la línea divisoria */}
+        <div className={`p-4 ${deferredInstallPrompt && !isStandalone ? '' : 'mt-auto'}`}>
+          <button
+            onClick={onOpenWelcomeInstructions}
+            className="w-full text-white text-sm font-medium py-2.5 px-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center gap-2 shadow-md"
+            style={{ backgroundColor: 'rgb(122, 141, 155)' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgb(102, 121, 135)'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgb(122, 141, 155)'}
+            aria-label="Ver instrucciones de uso"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+            </svg>
+            Instrucciones de uso
+          </button>
+        </div>
+
+        {/* Footer con copyright - DESPUÉS de la línea divisoria */}
+        <div className="p-4 border-t border-slate-700">
+          <p className="text-xs text-slate-400 text-center">&copy; {new Date().getFullYear()} {appMetadataName}</p>
         </div>
       </aside>
       <style>{`

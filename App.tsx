@@ -15,6 +15,7 @@ import { OfflineBanner } from './components/OfflineBanner';
 import { HelpGuideModal } from './components/HelpGuideModal';
 import { Sidebar } from './components/Sidebar';
 import { SkipLink } from './components/SkipLink';
+import { WelcomeInstructionsModal } from './components/WelcomeInstructionsModal';
 import { jsPDF } from 'jspdf';
 import { ASSISTANT_REGISTRY, AssistantKey, AssistantTheme, getDefaultAssistantKey, getDefaultAssistantTheme } from './assistants';
 
@@ -48,6 +49,7 @@ const App: React.FC = () => {
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
   const [fontSizeLevel, setFontSizeLevel] = useState<number>(DEFAULT_FONT_SIZE_LEVEL);
   const [isHelpGuideModalOpen, setIsHelpGuideModalOpen] = useState(false);
+  const [showWelcomeInstructions, setShowWelcomeInstructions] = useState(false);
 
   const formatConversationTitle = (date: Date): string => {
     return `Conversación ${date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })}, ${date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`;
@@ -197,6 +199,13 @@ const App: React.FC = () => {
         setConversations([newConv]);
         setCurrentConversationId(newConv.id);
         setMessages(newConv.messages);
+      }
+
+      // Mostrar modal de instrucciones solo la primera vez
+      const hasSeenInstructions = localStorage.getItem('hasSeenWelcomeInstructions');
+      if (!hasSeenInstructions) {
+        // Pequeño delay para que el usuario vea primero la interfaz
+        setTimeout(() => setShowWelcomeInstructions(true), 500);
       }
     }
   }, []);
@@ -471,6 +480,15 @@ const App: React.FC = () => {
   const closeHelpGuideModal = () => setIsHelpGuideModalOpen(false);
   const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
 
+  const closeWelcomeInstructions = () => {
+    setShowWelcomeInstructions(false);
+    localStorage.setItem('hasSeenWelcomeInstructions', 'true');
+  };
+
+  const openWelcomeInstructions = () => {
+    setShowWelcomeInstructions(true);
+  };
+
   if (!appMetadata) {
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-slate-100 p-6">
@@ -518,6 +536,7 @@ const App: React.FC = () => {
           deferredInstallPrompt={deferredInstallPrompt}
           isStandalone={isStandalone}
           onInstallClick={handleInstallClick}
+          onOpenWelcomeInstructions={openWelcomeInstructions}
         />
 
         <div className={`flex-1 flex flex-col bg-white shadow-2xl overflow-hidden max-w-full
@@ -581,6 +600,7 @@ const App: React.FC = () => {
       />
       <FavoritesModal isOpen={isFavoritesModalOpen} onClose={handleCloseFavoritesModal} messages={currentFullConversation?.messages || []} favoriteMessageIds={favoriteMessageIds} onToggleFavorite={handleToggleFavorite} userName={userName} theme={currentTheme} />
       <HelpGuideModal isOpen={isHelpGuideModalOpen} onClose={closeHelpGuideModal} theme={currentTheme || getDefaultAssistantTheme()} />
+      <WelcomeInstructionsModal isOpen={showWelcomeInstructions} onClose={closeWelcomeInstructions} theme={currentTheme} />
 
     </>
   );
