@@ -5,7 +5,7 @@ export const ABOUT_EULOGIO_CONTENT = {
   sections: [
     {
       heading: "Versión",
-      text: `Asistente de Ética Profesional - Versión 2.0.0-beta. Esta versión incluye mejoras en el análisis ético con metodologías de Sarah Banks, Ballestero y Reamer.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
+      text: `Asistente de Ética Profesional - Versión 2.1.0-beta. Esta versión incluye mejoras en el análisis ético con metodologías de Sarah Banks, Ballestero y Reamer.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
     },
     {
       heading: "Propósito",
@@ -31,7 +31,7 @@ export const ABOUT_PEPI_CONTENT = {
   sections: [
     {
       heading: "Versión",
-      text: `Asistente de Ética Profesional - Versión 2.0.0-beta. Esta versión incluye mejoras en el análisis ético con metodologías de Sarah Banks, Ballestero y Reamer.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
+      text: `Asistente de Ética Profesional - Versión 2.1.0-beta. Esta versión incluye mejoras en el análisis ético con metodologías de Sarah Banks, Ballestero y Reamer.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
     },
     {
       heading: "Misión",
