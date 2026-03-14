@@ -17,9 +17,9 @@ const urlsToCache = [
   '/index.html',
   '/index.js', 
   '/metadata.json',
-  '/eulogio.png',
-  '/pepi.png', 
-  '/gemini.png', // Nuevo avatar genérico
+  '/eulogio.webp',
+  '/pepi.webp', 
+  '/gemini.webp', // Nuevo avatar genérico
   ...iconsFromManifest 
 ];
 
