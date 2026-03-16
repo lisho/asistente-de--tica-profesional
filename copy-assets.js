@@ -9,16 +9,16 @@ const __dirname = path.dirname(__filename);
 
 const assetsToCopy = [
   { 
-    src: path.join(__dirname, 'eulogio.png'),
-    dest: path.join(__dirname, 'dist', 'eulogio.png') 
+    src: path.join(__dirname, 'eulogio.webp'),
+    dest: path.join(__dirname, 'dist', 'eulogio.webp') 
   },
   { 
-    src: path.join(__dirname, 'pepi.png'), 
-    dest: path.join(__dirname, 'dist', 'pepi.png')
+    src: path.join(__dirname, 'pepi.webp'), 
+    dest: path.join(__dirname, 'dist', 'pepi.webp')
   },
   { 
-    src: path.join(__dirname, 'gemini.png'), // Nuevo avatar genérico
-    dest: path.join(__dirname, 'dist', 'gemini.png') 
+    src: path.join(__dirname, 'gemini.webp'), // Nuevo avatar genérico
+    dest: path.join(__dirname, 'dist', 'gemini.webp') 
   },
   { 
     src: path.join(__dirname, 'metadata.json'),
@@ -55,10 +55,10 @@ async function copyAssets() {
 
         if (srcPathString === 'icons') { 
              console.warn(`Directorio de iconos PWA (${asset.src}) no encontrado. Por favor, créalo y añade los archivos de icono como se especifica en manifest.json. La aplicación funcionará, pero los iconos PWA podrían faltar. Omitiendo.`);
-        } else if (srcPathString === 'pepi.png') { 
-             console.warn(`Activo ${asset.src} no encontrado. Omitiendo. (Nota: pepi.png es para la asistente Pepi. Asegúrate de que el archivo existe en la raíz del proyecto).`);
-        } else if (srcPathString === 'gemini.png') { 
-             console.warn(`Activo ${asset.src} no encontrado. Omitiendo. (Nota: gemini.png es el avatar genérico. Asegúrate de que el archivo existe en la raíz del proyecto).`);
+        } else if (srcPathString === 'pepi.webp') { 
+             console.warn(`Activo ${asset.src} no encontrado. Omitiendo. (Nota: pepi.webp es para la asistente Pepi. Asegúrate de que el archivo existe en la raíz del proyecto).`);
+        } else if (srcPathString === 'gemini.webp') { 
+             console.warn(`Activo ${asset.src} no encontrado. Omitiendo. (Nota: gemini.webp es el avatar genérico. Asegúrate de que el archivo existe en la raíz del proyecto).`);
         } else if (srcPathString === 'manifest.json' || srcPathString === 'service-worker.js') {
             console.error(`Error Crítico: Archivo PWA esencial ${asset.src} no encontrado. Este archivo debería existir en la raíz del proyecto.`)
         }
