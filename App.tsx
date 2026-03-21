@@ -18,7 +18,7 @@ import { SkipLink } from './components/SkipLink';
 import { WelcomeInstructionsModal } from './components/WelcomeInstructionsModal';
 import { WelcomeBetaSlider } from './components/WelcomeBetaSlider';
 import { jsPDF } from 'jspdf';
-import { ASSISTANT_REGISTRY, AssistantKey, AssistantTheme, getDefaultAssistantKey, getDefaultAssistantTheme } from './assistants';
+import { ASSISTANT_REGISTRY, AssistantKey, AssistantTheme, getDefaultAssistantTheme } from './assistants';
 
 const MIN_FONT_SIZE_LEVEL = -2;
 const MAX_FONT_SIZE_LEVEL = 2;
@@ -466,7 +466,7 @@ const App: React.FC = () => {
   const handleInstallClick = async () => {
     if (!deferredInstallPrompt) return;
     deferredInstallPrompt.prompt();
-    const { outcome } = await deferredInstallPrompt.userChoice;
+    await deferredInstallPrompt.userChoice;
     setDeferredInstallPrompt(null);
   };
 
