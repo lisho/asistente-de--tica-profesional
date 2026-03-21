@@ -16,8 +16,9 @@ import { HelpGuideModal } from './components/HelpGuideModal';
 import { Sidebar } from './components/Sidebar';
 import { SkipLink } from './components/SkipLink';
 import { WelcomeInstructionsModal } from './components/WelcomeInstructionsModal';
+import { WelcomeBetaSlider } from './components/WelcomeBetaSlider';
 import { jsPDF } from 'jspdf';
-import { ASSISTANT_REGISTRY, AssistantKey, AssistantTheme, getDefaultAssistantKey, getDefaultAssistantTheme } from './assistants';
+import { ASSISTANT_REGISTRY, AssistantKey, AssistantTheme, getDefaultAssistantTheme } from './assistants';
 
 const MIN_FONT_SIZE_LEVEL = -2;
 const MAX_FONT_SIZE_LEVEL = 2;
@@ -50,6 +51,7 @@ const App: React.FC = () => {
   const [fontSizeLevel, setFontSizeLevel] = useState<number>(DEFAULT_FONT_SIZE_LEVEL);
   const [isHelpGuideModalOpen, setIsHelpGuideModalOpen] = useState(false);
   const [showWelcomeInstructions, setShowWelcomeInstructions] = useState(false);
+  const [showWelcomeBetaSlider, setShowWelcomeBetaSlider] = useState(true);
 
   const formatConversationTitle = (date: Date): string => {
     return `Conversación ${date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })}, ${date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`;
@@ -464,7 +466,7 @@ const App: React.FC = () => {
   const handleInstallClick = async () => {
     if (!deferredInstallPrompt) return;
     deferredInstallPrompt.prompt();
-    const { outcome } = await deferredInstallPrompt.userChoice;
+    await deferredInstallPrompt.userChoice;
     setDeferredInstallPrompt(null);
   };
 
@@ -510,6 +512,12 @@ const App: React.FC = () => {
         {deferredInstallPrompt && !isStandalone && (
           <InstallPWAButton onClick={handleInstallClick} theme={themeForModals} isFixed={true} />
         )}
+        <WelcomeBetaSlider
+          isOpen={showWelcomeBetaSlider}
+          onClose={() => setShowWelcomeBetaSlider(false)}
+          appVersion={appMetadata.version}
+          appName={appMetadata.name}
+        />
       </>
     );
   }
@@ -601,6 +609,11 @@ const App: React.FC = () => {
       <FavoritesModal isOpen={isFavoritesModalOpen} onClose={handleCloseFavoritesModal} messages={currentFullConversation?.messages || []} favoriteMessageIds={favoriteMessageIds} onToggleFavorite={handleToggleFavorite} userName={userName} theme={currentTheme} />
       <HelpGuideModal isOpen={isHelpGuideModalOpen} onClose={closeHelpGuideModal} theme={currentTheme || getDefaultAssistantTheme()} />
       <WelcomeInstructionsModal isOpen={showWelcomeInstructions} onClose={closeWelcomeInstructions} theme={currentTheme} />
+
+      <WelcomeBetaSlider
+        isOpen={showWelcomeBetaSlider}
+        onClose={() => setShowWelcomeBetaSlider(false)}
+      />
 
     </>
   );
