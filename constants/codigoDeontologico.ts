@@ -2,16 +2,16 @@ export const CODIGO_DEONTOLOGICO_TEXT = `
 
 **CÓDIGO DEONTOLÓGICO DE TRABAJO SOCIAL**
 
-El presente documento es el anteproyecto del Código Deontológico de Trabajo Social.  
-La Comisión Deontológica de Trabajo Social del Consejo General del Trabajo Social recoge las aportaciones de las Comisiones Deontológicas de la II Red Ética y Deontológica de Trabajo Social (REDts), de las profesionales y representantes de Asociaciones de Trabajo Social del Foro Reflexivo de Málaga, del grupo asesor de profesionales expertas en diversos ámbitos y de los Colegios Oficiales de Trabajo Social.​  
-Este anteproyecto es el resultado de un profundo proceso de reflexión en el que se han comparado los Códigos Deontológicos de Trabajo Social aprobados desde 2020 en los países miembros de la Federación Internacional de Trabajadoras Sociales (FITS).​  
+El presente documento es el Código Deontológico de Trabajo Social.  
+La Comisión Deontológica de Trabajo Social del Consejo General del Trabajo Social recogió las aportaciones de las Comisiones Deontológicas de la II Red Ética y Deontológica de Trabajo Social (REDts), de las profesionales y representantes de Asociaciones de Trabajo Social del Foro Reflexivo de Málaga, del grupo asesor de profesionales expertas en diversos ámbitos y de los Colegios Oficiales de Trabajo Social.​  
+Este documento es el resultado de un profundo proceso de reflexión en el que se han comparado los Códigos Deontológicos de Trabajo Social aprobados desde 2020 en los países miembros de la Federación Internacional de Trabajadoras Sociales (FITS).​  
 Se han recibido, analizado y contestado 1169 aportaciones del grupo de especialistas en distintos ámbitos de intervención y hasta un total de 693 alegaciones de las Comisiones Deontológicas de los Colegios Oficiales de Trabajo Social o de sus grupos o representantes especialistas en deontología y ética de los colegios oficiales y de los Consejos Regionales.​  
-Este texto continuará con la tramitación legal oportuna hasta su aprobación por la Asamblea General de los Colegios Oficiales de Trabajo Social.​
+Este texto constituye la normativa vigente aprobada por la Asamblea General de los Colegios Oficiales de Trabajo Social.​
 
 Todos los derechos reservados © Consejo General del Trabajo Social  
-Fecha anteproyecto: 9 febrero 2026.​
+Fecha: 9 febrero 2026.​
 
-# **ANTEPROYECTO CÓDIGO DEONTOLÓGICO DE TRABAJO SOCIAL**
+# **CÓDIGO DEONTOLÓGICO DE TRABAJO SOCIAL**
 
 ## **CONSEJO GENERAL DEL TRABAJO SOCIAL**
 
