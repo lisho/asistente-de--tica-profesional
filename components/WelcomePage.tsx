@@ -88,7 +88,7 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({ onUserIdentified, init
   return (
     <div className="flex flex-col items-center min-h-screen bg-slate-100 p-4 md:p-6 text-center overflow-y-auto">
       <div className="flex flex-col items-center justify-center w-full my-auto">
-        <div className="bg-white p-6 md:p-10 rounded-xl shadow-2xl max-w-xl w-full">
+        <div className="bg-white p-6 md:p-10 rounded-xl shadow-2xl max-w-xl w-full animate-fade-in">
           <img
             src={avatarUrlToDisplay}
             alt={altTextForAvatar}

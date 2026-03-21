@@ -528,7 +528,7 @@ const App: React.FC = () => {
     <>
       <SkipLink />
       {!isOnline && <OfflineBanner theme={currentTheme} />}
-      <div className={`flex h-screen overflow-hidden ${getFontSizeClass(fontSizeLevel)}`}>
+      <div className={`flex h-screen overflow-hidden ${getFontSizeClass(fontSizeLevel)} animate-fade-in`}>
         <Sidebar
           isOpen={isSidebarOpen}
           onToggle={toggleSidebar}

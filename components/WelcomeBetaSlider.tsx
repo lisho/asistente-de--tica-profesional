@@ -117,21 +117,21 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
             content: (
                 <div className="space-y-3">
                     <p>Gracias por participar en el testeo de <strong>{appName}</strong>. Tu colaboración es imprescindible para afinar esta herramienta.</p>
-                    <div className="bg-slate-300/50 p-3 rounded-lg border border-slate-300">
-                        <p className="font-semibold text-sm mb-2 flex items-center">
-                            <span className="text-lg mr-2">🧪</span> Tu opinión importa
-                        </p>
-                        <p className="text-sm">
-                            Haciendo clic en el <strong>icono de mensaje</strong> que está junto al nombre del asistente accederás al formulario con el que podrás enviar tu valoración de la aplicación, además de reportar errores, opiniones o sugerencias. <strong>Por favor, rellénalo después de usar la herramienta.</strong>
-                        </p>
-                        <div className="flex items-center mt-2 text-slate-700 font-medium text-sm">
-                            👉 Busca este icono:
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 ml-1 text-purple-700 bg-white rounded-md shadow-sm p-0.5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"></path>
-                            </svg>
+                        <div className="bg-slate-300/50 p-3 rounded-lg border border-slate-300">
+                            <p className="font-semibold text-sm mb-2 flex items-center">
+                                <span className="text-lg mr-2">🧪</span> Tu opinión importa
+                            </p>
+                            <p className="text-sm">
+                                Haciendo clic en el <strong>icono de mensaje</strong> que está junto al nombre del asistente accederás al formulario con el que podrás enviar tu valoración de la aplicación, además de reportar errores, opiniones o sugerencias. <strong>Por favor, rellénalo después de usar la herramienta.</strong>
+                            </p>
+                            <div className="flex items-center mt-2 text-slate-700 font-medium text-sm">
+                                👉 Busca este icono:
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 ml-1 text-purple-700 bg-white rounded-md shadow-sm p-0.5">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"></path>
+                                </svg>
+                            </div>
                         </div>
                     </div>
-                </div>
             ),
             badge: `Versión ${appVersion}`,
             badgeColor: 'bg-slate-600 text-white',
@@ -212,7 +212,7 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/70 backdrop-blur-md p-2 sm:p-4 md:p-8">
             {/* Glass Card */}
             <div
-                className="relative w-full max-w-3xl bg-white/85 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 overflow-hidden flex flex-col transition-all duration-500"
+                className="relative w-full max-w-3xl bg-white/85 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 overflow-hidden flex flex-col transition-all duration-500 animate-scale-in"
                 style={{ maxHeight: '92vh' }}
                 onClick={(e) => e.stopPropagation()}
             >
@@ -220,7 +220,22 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
                 <div className={`h-2 w-full bg-gradient-to-r ${slide.gradient} transition-all duration-700 ease-in-out flex-shrink-0`} />
 
                 {/* Slide Content */}
-                <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 custom-scrollbar">
+                <div key={currentSlide} className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 custom-scrollbar animate-slide-in-right">
+                    {/* Proyecto Header for first slide only */}
+                    {currentSlide === 0 && (
+                        <div className="flex flex-col items-center justify-center p-6 mb-8 bg-slate-100/50 rounded-3xl border border-slate-200 shadow-sm transition-all animate-in fade-in slide-in-from-top duration-500">
+                            <img 
+                                src="/gemini.webp" 
+                                alt="Logo Proyecto Deontolog-IA" 
+                                className="w-20 h-20 md:w-24 md:h-24 rounded-full mb-4 border-4 border-white shadow-xl object-cover transform transition hover:scale-110"
+                            />
+                            <h1 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter text-center">
+                                Proyecto Deontolog-IA
+                            </h1>
+                            <div className="h-1 w-16 bg-slate-400/30 rounded-full mt-4" />
+                        </div>
+                    )}
+
                     {/* Badge */}
                     <div className="flex justify-between items-center mb-6">
                         <span className={`text-xs font-bold px-3 py-1.5 rounded-full shadow-sm ${slide.badgeColor} transition-colors duration-500`}>
