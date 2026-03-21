@@ -122,7 +122,7 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
                             <span className="text-lg mr-2">🧪</span> Tu opinión importa
                         </p>
                         <p className="text-sm">
-                            Si encuentras errores, respuestas poco útiles o tienes sugerencias, <strong>envíanos tu feedback haciendo clic en el icono de mensaje</strong> que está junto al nombre del asistente.
+                            Haciendo clic en el <strong>icono de mensaje</strong> que está junto al nombre del asistente accederás al formulario con el que podrás enviar tu valoración de la aplicación, además de reportar errores, opiniones o sugerencias. <strong>Por favor, rellénalo después de usar la herramienta.</strong>
                         </p>
                         <div className="flex items-center mt-2 text-slate-700 font-medium text-sm">
                             👉 Busca este icono:
