@@ -540,7 +540,6 @@ const App: React.FC = () => {
           onNewConversation={handleNewConversation}
           onLoadConversation={handleLoadConversation}
           onDeleteConversation={handleRequestDeleteConversation}
-          userName={userName}
           deferredInstallPrompt={deferredInstallPrompt}
           isStandalone={isStandalone}
           onInstallClick={handleInstallClick}

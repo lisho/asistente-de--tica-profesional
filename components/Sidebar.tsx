@@ -14,7 +14,6 @@ interface SidebarProps {
   onNewConversation: () => void;
   onLoadConversation: (id: string) => void;
   onDeleteConversation: (id: string) => void;
-  userName: string | null;
   deferredInstallPrompt: BeforeInstallPromptEvent | null;
   isStandalone: boolean;
   onInstallClick: () => void;
@@ -31,7 +30,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onNewConversation,
   onLoadConversation,
   onDeleteConversation,
-  userName,
   deferredInstallPrompt,
   isStandalone,
   onInstallClick,
@@ -119,7 +117,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   }}
                   title="Eliminar conversación"
                   aria-label={`Eliminar conversación titulada ${conv.title}`}
-                  className={`ml-2 p-1 rounded-full text-slate-400 hover:text-red-400 hover:bg-slate-700 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity
+                  className={`ml-2 p-1 rounded-full text-slate-400 hover:text-red-400 hover:bg-slate-700 transition-opacity
                               ${conv.id === currentConversationId ? 'text-slate-300 hover:text-red-300' : ''}`}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">

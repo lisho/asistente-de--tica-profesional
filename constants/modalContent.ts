@@ -5,7 +5,7 @@ export const ABOUT_EULOGIO_CONTENT = {
   sections: [
     {
       heading: "Versión",
-      text: `Asistente de Ética Profesional - Versión 2.1.0-beta. Esta versión incluye mejoras en el análisis ético con metodologías de Sarah Banks, Ballestero y Reamer.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
+      text: `Asistente de Ética Profesional - Versión 2.1.1-beta. Esta versión incluye mejoras en el análisis ético con metodologías de Sarah Banks, Ballestero y Reamer.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
     },
     {
       heading: "Propósito",
@@ -31,7 +31,7 @@ export const ABOUT_PEPI_CONTENT = {
   sections: [
     {
       heading: "Versión",
-      text: `Asistente de Ética Profesional - Versión 2.1.0-beta. Esta versión incluye mejoras en el análisis ético con metodologías de Sarah Banks, Ballestero y Reamer.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
+      text: `Asistente de Ética Profesional - Versión 2.1.1-beta. Esta versión incluye mejoras en el análisis ético con metodologías de Sarah Banks, Ballestero y Reamer.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
     },
     {
       heading: "Misión",
@@ -76,7 +76,7 @@ export const HOW_TO_USE_SECTIONS = [
   {
     heading: "2. Área de Mensajes (Centro)",
     points: [
-      "Aquí se muestra la conversación entre tú y el asistente.",
+      "Aquí se muestra la conversación entre el asistente y tú.",
       "Tus mensajes aparecen a la derecha; los del asistente, a la izquierda con su avatar.",
       "Puedes desplazarte hacia arriba para ver mensajes anteriores."
     ]
@@ -92,7 +92,7 @@ export const HOW_TO_USE_SECTIONS = [
   {
     heading: "⚙️ Funcionalidades Adicionales",
     points: [
-      "**Guardado Automático:** Tu nombre, el asistente elegido, el historial de chat y tus preferencias (como el tamaño de fuente) se guardan en tu navegador. Si cierras y vuelves a abrir la app, deberías poder continuar donde lo dejaste.",
+      "**Guardado Local y Privacidad:** Las conversaciones solo se guardan en tu dispositivo para proteger tu privacidad y no compartir información externamente. La ventaja es la confidencialidad total; el inconveniente es que para acceder a tus mensajes anteriores es necesario entrar con el **mismo nombre**, con el **mismo asistente** y desde el **mismo dispositivo**.",
       "**Instalación (PWA):** Si tu navegador lo permite, verás un botón 'Instalar App' en la esquina inferior derecha. Esto añade la aplicación a tu dispositivo para un acceso más rápido y una experiencia similar a una app nativa.",
       "**Indicador de Desconexión:** Si pierdes la conexión a internet, aparecerá un banner amarillo en la parte superior advirtiéndote. Las funciones de IA no estarán disponibles hasta que recuperes la conexión.",
       "**Favoritos:** Puedes marcar mensajes importantes del asistente para revisarlos fácilmente más tarde a través del modal de favoritos."
