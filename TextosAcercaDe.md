@@ -4,6 +4,11 @@ Utiliza este archivo para editar los textos descriptivos de los asistentes que a
 
 ---
 
+## 🚀 VERSIÓN (Común para ambos)
+"Asistente de Ética Profesional - Versión 2.1.1-beta. Esta versión incorpora el texto del Código Deontológico de 2026 e incluye mejoras en el análisis ético mediante la integración de metodologías de deliberación de autores de referencia en la disciplina."
+
+---
+
 ## 👴 EULOGIO
 
 ### Propósito

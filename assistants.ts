@@ -57,7 +57,7 @@ export const ASSISTANT_REGISTRY: Record<AssistantKey, AssistantTheme> = {
     aboutContent: ABOUT_EULOGIO_CONTENT,
     initialGreeting: (userName: string) => `Hola ${userName}. Soy Eulogio. Llevo muchos años en esto del Trabajo Social y la ética profesional en España. Pregunta lo que necesites, pero vayamos al grano. ¿En qué puedo ilustrarte hoy?`,
     appTitle: "Eulogio: Asistente de Trabajo Social",
-    appDescription: "Un asistente de IA experto en trabajo social, deontología y ética profesional, basado en el conocimiento de la práctica en España. Eulogio te ayudará a navegar complejos escenarios éticos y deontológicos en el ámbito del trabajo social.",
+    appDescription: "Un asistente para la reflexión ética que te acompaña en procesos de deliberación fundamentada. No ofrece respuestas directas, sino herramientas y recursos para que tú tomes tus propias decisiones profesionales.",
   },
   [AssistantKey.PEPI]: {
     primaryBg: 'bg-[#EED0C6]',       // Custom hex for Clara's base: very light, warm, peachy-pink pastel
@@ -76,7 +76,7 @@ export const ASSISTANT_REGISTRY: Record<AssistantKey, AssistantTheme> = {
     aboutContent: ABOUT_PEPI_CONTENT,
     initialGreeting: (userName: string) => `¡Hola, ${userName}, corazón! Soy Pepi, ¡qué alegría tenerte aquí! Estoy lista para ayudarte con tus dudas sobre ética y Trabajo Social con todo mi cariño y apoyo. ¿En qué puedo ser tu guía hoy?`,
     appTitle: "Pepi: Asistente de Trabajo Social",
-    appDescription: "Una asistente IA especializada en trabajo social y ética profesional en España. Pepi te ofrece apoyo y orientación con un enfoque claro, amable y empático.",
+    appDescription: "Una asistente IA diseñada para acompañar procesos de reflexión ética con un enfoque claro, amable y empático. Proporciona recursos para la deliberación profesional sin dar respuestas cerradas.",
   }
 };
 
