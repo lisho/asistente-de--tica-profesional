@@ -105,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
         {/* Botón para feedback de la aplicación */}
         <a
-          href="https://deontofeedback.netlify.app/"
+          href="https://deontofeedback.netlify.app/beta"
           target="_blank"
           rel="noopener noreferrer"
           title="Enviar feedback sobre la aplicación"
