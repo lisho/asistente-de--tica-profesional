@@ -58,35 +58,34 @@ export const HOW_TO_USE_SECTIONS = [
     points: [
       "Al iniciar, verás la página de bienvenida.",
       "**Elige tu Asistente:** Haz clic en la tarjeta del asistente (Eulogio o Pepi) que prefieras. Cada uno tiene un estilo y enfoque particular.",
-      "**Identifícate:** Escribe tu nombre en el campo provisto.",
+      "**Identifícate:** Escribe tu nombre en el campo de texto.",
       "**Comenzar:** Pulsa el botón 'Entrar al chat con [Nombre del Asistente]' para acceder a la sala de chat."
     ]
   },
   {
     heading: "💬 Interfaz Principal del Chat",
-    text: "Una vez dentro, la interfaz se divide en tres partes principales:"
+    text: "Una vez dentro, aunque puede variar ligeramente del ordenador a un dispositivo móvil, la interfaz se divide en tres partes principales:"
   },
   {
-    heading: "1. Cabecera (Parte Superior)",
+    heading: "Menú Lateral (Izquierda)",
     points: [
-      "Muestra el avatar, nombre y lema del asistente seleccionado.",
-      "Contiene botones para diversas acciones (ver 'Leyenda de Botones' más abajo)."
+      "Información del asistente activo y botón para nueva conversación.",
+      "Historial de conversaciones anteriores con opción de eliminar.",
+      "Acceso a recomendaciones de uso."
     ]
   },
   {
-    heading: "2. Área de Mensajes (Centro)",
+    heading: "Barra Superior",
     points: [
-      "Aquí se muestra la conversación entre el asistente y tú.",
-      "Tus mensajes aparecen a la derecha; los del asistente, a la izquierda con su avatar.",
-      "Puedes desplazarte hacia arriba para ver mensajes anteriores."
+      "Botones de navegación: menú, cambio de asistente y feedback.",
+      "Herramientas: zoom de texto, descarga PDF, favoritos, limpiar chat e información."
     ]
   },
   {
-    heading: "3. Entrada de Mensajes (Parte Inferior)",
+    heading: "Área de Conversación (Centro)",
     points: [
-      "**Escribir Mensaje:** Utiliza el campo de texto grande para escribir tus preguntas o comentarios.",
-      "**Dictar por Voz:** Pulsa el botón del micrófono para activar el dictado (requiere permiso del navegador). Vuelve a pulsarlo para detener.",
-      "**Enviar Mensaje:** Pulsa el botón del avión de papel para enviar tu texto al asistente."
+      "Zona de mensajes entre el usuario y el asistente.",
+      "Campo de entrada de texto con opciones de dictado por voz y envío."
     ]
   },
   {
@@ -95,7 +94,7 @@ export const HOW_TO_USE_SECTIONS = [
       "**Guardado Local y Privacidad:** Las conversaciones solo se guardan en tu dispositivo para proteger tu privacidad y no compartir información externamente. La ventaja es la confidencialidad total; el inconveniente es que para acceder a tus mensajes anteriores es necesario entrar con el **mismo nombre**, con el **mismo asistente** y desde el **mismo dispositivo**.",
       "**Instalación (PWA):** Si tu navegador lo permite, verás un botón 'Instalar App' en la esquina inferior derecha. Esto añade la aplicación a tu dispositivo para un acceso más rápido y una experiencia similar a una app nativa.",
       "**Indicador de Desconexión:** Si pierdes la conexión a internet, aparecerá un banner amarillo en la parte superior advirtiéndote. Las funciones de IA no estarán disponibles hasta que recuperes la conexión.",
-      "**Favoritos:** Puedes marcar mensajes importantes del asistente para revisarlos fácilmente más tarde a través del modal de favoritos."
+      "**Favoritos:** Puedes marcar mensajes importantes del asistente para revisarlos y descargarlos fácilmente más tarde a través de espacio de favoritos."
     ]
   }
 ];
@@ -104,7 +103,7 @@ export const BUTTON_LEGEND_ITEMS = [
   {
     icon: "⬅️",
     name: "Cambiar de Asistente",
-    description: "Vuelve a la página de bienvenida para seleccionar otro asistente o cambiar tu nombre. El chat actual con el asistente previo se guardará si vuelves a él.",
+    description: "Vuelve a la página de bienvenida para seleccionar otro asistente o cambiar tu nombre. El chat actual con el asistente previo se guardará automámicamente en tu dispositivo por si quieres volver a él.",
     location: "Cabecera"
   },
   {
@@ -128,7 +127,7 @@ export const BUTTON_LEGEND_ITEMS = [
   {
     icon: "⭐",
     name: "Ver Favoritos",
-    description: "Abre un modal donde puedes ver todas las interacciones (tu pregunta y la respuesta del IA) que hayas marcado como favoritas. También puedes descargar tus favoritos en PDF desde aquí.",
+    description: "Abre un modal donde puedes ver todas las interacciones (tu pregunta y la respuesta de la IA) que hayas marcado como favoritas. También puedes descargar tus favoritos en PDF desde aquí.",
     location: "Cabecera"
   },
   {
@@ -146,7 +145,7 @@ export const BUTTON_LEGEND_ITEMS = [
   {
     icon: "🎤",
     name: "Dictar Mensaje / Detener Dictado",
-    description: "Permite dictar tu pregunta usando la voz. Púlsalo una vez para empezar a escuchar, y de nuevo para detener. Si el navegador no es compatible o no tiene permisos, estará desactivado.",
+    description: "Permite dictar tu pregunta usando la voz. Púlsalo una vez para empezar a dictar, y de nuevo para detener. Si el navegador no es compatible o no tiene permisos, estará desactivado.",
     location: "Entrada de Mensajes"
   },
   {
@@ -158,19 +157,19 @@ export const BUTTON_LEGEND_ITEMS = [
   {
     icon: "⭐",
     name: "Marcar/Desmarcar Favorito",
-    description: "Aparece al pasar el ratón sobre un mensaje del asistente. Permite guardar la interacción (tu pregunta previa y esta respuesta) como favorita, o quitarla si ya lo estaba.",
+    description: "Aparece al pasar el ratón o tocar la pantalla sobre un mensaje del asistente. Permite guardar la interacción (tu pregunta previa y esta respuesta) como favorita, o quitarla si ya lo estaba.",
     location: "Mensajes del Asistente"
   },
   {
     icon: "📋",
     name: "Copiar Mensaje",
-    description: "Aparece al pasar el ratón sobre un mensaje del asistente. Copia el texto completo de ese mensaje al portapapeles.",
+    description: "Aparece al pasar el ratón o tocar la pantalla sobre un mensaje del asistente. Copia el texto completo de ese mensaje al portapapeles.",
     location: "Mensajes del Asistente"
   },
   {
     icon: "⬇️",
     name: "Instalar Aplicación",
-    description: "Botón flotante que aparece si la aplicación aún no está instalada como PWA y el navegador lo soporta. Te permite instalar la app en tu dispositivo.",
+    description: "Botón flotante que aparece si la aplicación aún no está instalada y el navegador lo soporta. Te permite instalar la app en tu dispositivo.",
     location: "Esquina inferior derecha (si aplica)"
   }
 ];

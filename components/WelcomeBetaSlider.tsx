@@ -62,7 +62,7 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
                 ))}
             </div>
             <p className="text-xs sm:text-sm font-medium text-emerald-800/80 text-center italic mt-4 px-2">
-                * Estos son los controles principales. Podrás revisarlos siempre que quieras desde el menú del chat.
+                * Estos son los controles principales. Podrás revisarlos siempre que quieras desde la guía en la página de inicio o desde el menú de información del asistente activo.
             </p>
         </div>
     );
@@ -73,7 +73,7 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
             <div className="space-y-3">
                 
                 <div className="bg-white/50 p-3 sm:p-4 rounded-lg border border-purple-100 shadow-sm">
-                    <h4 className="font-bold text-slate-800 text-sm mb-1.5 flex items-center"><span className="text-lg mr-2">🤔</span> ¿Qué es este asistente?</h4>
+                    <h4 className="font-bold text-slate-800 text-sm mb-1.5 flex items-center"><span className="text-lg mr-2">🤔</span> ¿De qué va esta aplicación?</h4>
                     <p className="text-sm text-slate-700 leading-relaxed">Este es un <strong>asistente para la reflexión ética</strong> en el Trabajo Social. <strong>No te dará recetas ni soluciones cerradas</strong>, sino que te acompañará en un proceso de deliberación fundamentada para que <strong>tú</strong> tomes decisiones responsables.</p>
                 </div>
 
@@ -100,7 +100,7 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
             </div>
             
             <p className="text-xs sm:text-sm font-medium text-purple-800/80 text-center italic mt-4 px-2">
-                * Estas recomendaciones y la guía técnica están siempre disponibles en la página de inicio y en la información del asistente activo.
+                * Estas recomendaciones y la guía técnica están siempre disponibles en la barra lateral de la sala de chat.
             </p>
         </div>
     );
@@ -116,7 +116,7 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
             title: '¡Bienvenido/a a la fase Beta!',
             content: (
                 <div className="space-y-4">
-                    <p>¡Bienvenido/a al testeo de la versión beta de la aplicación <strong>Deontolog-IA</strong>!</p>
+                    <p>¡Muchas Gracias por participar en el testeo de la versión beta de la aplicación <strong>Deontolog-IA</strong>! Tu opinión es imprescindible para afinar esta herramienta.</p>
                     <div className="bg-slate-300/50 p-4 rounded-xl border border-slate-300">
                         <p className="font-semibold text-sm mb-3 flex items-center">
                             <span className="text-xl mr-2">🎯</span> Las tareas del testeo serán:
@@ -128,14 +128,14 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
                             </li>
                             <li className="flex items-start">
                                 <span className="mr-2">2️⃣</span>
-                                <span><strong>Prueba la aplicación</strong> planteando a los asistentes preguntas, dilemas y retos. Úsala para hacerte con ella y probar las funcionalidades disponibles antes de enviar la valoración para formarte una buena opinión.</span>
+                                <span><strong>Prueba la aplicación</strong> planteando a los asistentes preguntas, dilemas y retos. Úsala para hacerte con ella, probar las funcionalidades disponibles y formarte una opinión antes de enviar la valoración.</span>
                             </li>
                             <li className="flex items-start">
                                 <span className="mr-2">3️⃣</span>
                                 <div>
                                     <span>Por fin, <strong>responde al cuestionario</strong> de valoración.</span>
                                     <div className="flex items-center text-slate-600 font-medium text-xs mt-1">
-                                        👉 Podrás acceder luego desde el botón de la cabecera:
+                                        👉 Podrás acceder luego desde el botón de feedback de la cabecera del chatbot:
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 ml-1">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"></path>
                                         </svg>
@@ -157,7 +157,7 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
             bubbleBg: 'bg-rose-50',
             bubbleText: 'text-rose-900',
             title: 'Código Deontológico 2026',
-            content: <p>Querido/a, para este testeo los asistentes <strong>usaremos el Código Deontológico de 2026 como si estuviera plenamente en vigor</strong>. Esto nos permite validar juntos/as las nuevas normativas éticas en casos prácticos. 💛</p>,
+            content: <p>Querido/a, para este testeo los asistentes <strong>usaremos el Código Deontológico de 2026 como si estuviera plenamente en vigor</strong>. Esto nos permitirá validar juntos/as el nuevo texto sobre casos prácticos. 💛</p>,
             badge: 'Importante',
             badgeColor: 'bg-amber-500 text-white',
             gradient: 'from-rose-400 via-amber-300 to-rose-200'
@@ -180,7 +180,7 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
             speakerColor: 'text-blue-800',
             bubbleBg: 'bg-blue-50',
             bubbleText: 'text-blue-900',
-            title: 'Instrucciones Importantes',
+            title: 'Instrucciones',
             content: renderInstructions(),
             badge: 'Información 2 de 3',
             badgeColor: 'bg-blue-600 text-white',
