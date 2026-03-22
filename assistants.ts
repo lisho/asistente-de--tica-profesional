@@ -52,7 +52,7 @@ export const ASSISTANT_REGISTRY: Record<AssistantKey, AssistantTheme> = {
     iconHoverColor: 'hover:text-white', // White for icon hover
     avatarUrl: EULOGIO_AVATAR_URL,
     name: 'Eulogio',
-    tagline: 'Tu Asistente de Trabajo Social',
+    tagline: 'Tu guía veterano en dilemas éticos',
     systemInstruction: EULOGIO_SYSTEM_INSTRUCTION,
     aboutContent: ABOUT_EULOGIO_CONTENT,
     initialGreeting: (userName: string) => `Hola ${userName}. Soy Eulogio. Llevo muchos años en esto del Trabajo Social y la ética profesional en España. Pregunta lo que necesites, pero vayamos al grano. ¿En qué puedo ilustrarte hoy?`,
@@ -71,12 +71,12 @@ export const ASSISTANT_REGISTRY: Record<AssistantKey, AssistantTheme> = {
     iconHoverColor: 'hover:text-rose-900', // Darker for icon hover
     avatarUrl: PEPI_AVATAR_URL,
     name: 'Pepi',
-    tagline: 'Tu Asistente de Bienestar Social',
+    tagline: 'Tu guía cercana para la reflexión ética',
     systemInstruction: PEPI_SYSTEM_INSTRUCTION,
     aboutContent: ABOUT_PEPI_CONTENT,
-    initialGreeting: (userName: string) => `¡Hola, ${userName}, corazón! Soy Pepi, ¡qué alegría tenerte aquí! Estoy lista para ayudarte con tus dudas sobre ética y bienestar social con todo mi cariño y apoyo. ¿En qué puedo ser tu guía hoy?`,
-    appTitle: "Pepi: Asistente de Bienestar Social",
-    appDescription: "Una asistente IA especializada en bienestar social y ética profesional en España. Pepi te ofrece apoyo y orientación con un enfoque claro y empático.",
+    initialGreeting: (userName: string) => `¡Hola, ${userName}, corazón! Soy Pepi, ¡qué alegría tenerte aquí! Estoy lista para ayudarte con tus dudas sobre ética y Trabajo Social con todo mi cariño y apoyo. ¿En qué puedo ser tu guía hoy?`,
+    appTitle: "Pepi: Asistente de Trabajo Social",
+    appDescription: "Una asistente IA especializada en trabajo social y ética profesional en España. Pepi te ofrece apoyo y orientación con un enfoque claro, amable y empático.",
   }
 };
 

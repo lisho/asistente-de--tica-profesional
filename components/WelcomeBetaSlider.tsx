@@ -48,12 +48,95 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
         </div>
     );
 
+    const renderIcon = (iconKey?: string, fallbackEmoji?: string) => {
+        const iconClass = "w-6 h-6 text-slate-700";
+        
+        switch (iconKey) {
+            case 'changeAssistant':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                    </svg>
+                );
+            case 'decreaseFont':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM13.5 10.5h-6" />
+                    </svg>
+                );
+            case 'increaseFont':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+                    </svg>
+                );
+            case 'downloadPdf':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                );
+            case 'viewFavorites':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.822.672l-4.684-2.795a.563.563 0 0 0-.652 0l-4.684 2.795a.562.562 0 0 1-.822-.672l1.285-5.385a.562.562 0 0 0-.182-.557l-4.204-3.602a.563.563 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                    </svg>
+                );
+            case 'clearChat':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12.56 0c.342.052.682.107 1.022.166m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                    </svg>
+                );
+            case 'about':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                    </svg>
+                );
+            case 'dictate':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15c.621 0 1.125-.504 1.125-1.125V6.375c0-.621-.504-1.125-1.125-1.125S10.875 5.754 10.875 6.375v7.5c0 .621.504 1.125 1.125 1.125Z" />
+                    </svg>
+                );
+            case 'send':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                    </svg>
+                );
+            case 'favoriteMessage':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.822.672l-4.684-2.795a.563.563 0 0 0-.652 0l-4.684 2.795a.562.562 0 0 1-.822-.672l1.285-5.385a.562.562 0 0 0-.182-.557l-4.204-3.602a.563.563 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                    </svg>
+                );
+            case 'copyMessage':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                    </svg>
+                );
+            case 'installApp':
+                return (
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={iconClass}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                );
+            default:
+                return <span className="text-xl" aria-hidden="true">{fallbackEmoji}</span>;
+        }
+    };
+
     const renderLegend = () => (
         <div className="space-y-4">
             <div className="space-y-2 sm:space-y-3">
-                {BUTTON_LEGEND_ITEMS.map((item, index) => (
+                {BUTTON_LEGEND_ITEMS.map((item: any, index: number) => (
                     <div key={`legend-${index}`} className="flex items-start gap-3 p-3 bg-white/50 rounded-lg border border-emerald-50">
-                        <span className="text-xl flex-shrink-0 mt-0.5" aria-hidden="true">{item.icon}</span>
+                        <span className="flex-shrink-0 mt-0.5" aria-hidden="true">
+                            {renderIcon(item.iconKey, item.icon)}
+                        </span>
                         <div>
                             <p className="font-bold text-slate-800 text-sm leading-tight mb-1">{item.name} <span className="font-normal text-xs text-slate-500 bg-slate-200/80 px-1.5 py-0.5 rounded-full ml-1 inline-block mt-1 sm:mt-0">{item.location}</span></p>
                             <p className="text-xs text-slate-600 mt-1 sm:mt-0 leading-relaxed">{item.description}</p>
@@ -113,7 +196,7 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
             speakerColor: 'text-slate-700',
             bubbleBg: 'bg-slate-200',
             bubbleText: 'text-slate-800',
-            title: '¡Bienvenido/a a la fase Beta!',
+            title: '¡Bienvenido/a a la fase beta!',
             content: (
                 <div className="space-y-4">
                     <p>¡Muchas Gracias por participar en el testeo de la versión beta de la aplicación <strong>Deontolog-IA</strong>! Tu opinión es imprescindible para afinar esta herramienta.</p>
@@ -133,12 +216,14 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
                             <li className="flex items-start">
                                 <span className="mr-2">3️⃣</span>
                                 <div>
-                                    <span>Por fin, <strong>responde al cuestionario</strong> de valoración.</span>
-                                    <div className="flex items-center text-slate-600 font-medium text-xs mt-1">
-                                        👉 Podrás acceder luego desde el botón de feedback de la cabecera del chatbot:
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 ml-1">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"></path>
-                                        </svg>
+                                    <span>Para finalizar, <strong>responde al cuestionario</strong> de valoración.</span>
+                                    <div className="flex items-center text-slate-600 font-medium text-xs sm:text-sm mt-3 bg-white/60 p-3 rounded-lg border border-slate-200 shadow-sm">
+                                        <span className="flex-1">👉 Podrás acceder luego desde el botón de feedback de la cabecera del chatbot:</span>
+                                        <div className="ml-3 bg-white p-2 rounded-xl shadow-md border-2 border-purple-100 transform hover:scale-105 transition-transform flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8 sm:w-10 sm:h-10 text-purple-700">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"></path>
+                                            </svg>
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -192,7 +277,7 @@ export const WelcomeBetaSlider: React.FC<WelcomeBetaSliderProps> = ({
             speakerColor: 'text-emerald-800',
             bubbleBg: 'bg-emerald-50',
             bubbleText: 'text-emerald-900',
-            title: 'Leyenda de Botones',
+            title: 'Leyenda de botones',
             content: renderLegend(),
             badge: 'Información 3 de 3',
             badgeColor: 'bg-emerald-600 text-white',
