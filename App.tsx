@@ -271,7 +271,7 @@ const App: React.FC = () => {
     let accumulatedResponse = "";
     try {
       const geminiHistory = [...historyForGemini, { role: 'user' as 'user', parts: [{ text: userMessageText }] }];
-      for await (const chunk of getAssistantResponseStream(userMessageText, geminiHistory, currentTheme.systemInstruction)) {
+      for await (const chunk of getAssistantResponseStream(userMessageText, geminiHistory, currentTheme.systemInstruction, currentTheme.name)) {
         accumulatedResponse += chunk;
         setMessages(prevMsgs => prevMsgs.map(msg =>
           msg.id === aiMessageId ? { ...msg, text: accumulatedResponse } : msg

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google/genai": "^1.0.1",
+    "firebase": "^12.11.0",
     "fs-extra": "^11.3.0",
     "jspdf": "^3.0.1",
     "path": "^0.12.7",
