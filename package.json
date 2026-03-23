@@ -1,7 +1,7 @@
 {
   "name": "asistente-de-ética-profesional",
   "private": true,
-  "version": "2.1.1-beta",
+  "version": "2.1.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google/genai": "^1.0.1",
+    "firebase": "^12.11.0",
     "fs-extra": "^11.3.0",
     "jspdf": "^3.0.1",
     "path": "^0.12.7",
