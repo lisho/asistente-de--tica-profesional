@@ -21,7 +21,7 @@ export const ABOUT_EULOGIO_CONTENT = {
     },
     {
       heading: "Privacidad y Confidencialidad",
-      text: "Por favor, no compartas información personal identificable o sensible sobre casos reales en esta conversación. Aunque la conversación es procesada de forma segura, es una buena práctica mantener la confidencialidad de los datos de las personas usuarias. Las interacciones pueden ser revisadas de forma anónima para mejorar el servicio."
+      text: "Por favor, no compartas información personal identificable o sensible sobre casos reales en esta conversación. Aunque la conversación es procesada de forma segura, es una buena práctica mantener la confidencialidad de los datos de las personas usuarias. Las conversaciones solo se guardan en tu dispositivo para proteger tu privacidad y no se comparten externamente."
     }
   ]
 };
@@ -47,7 +47,7 @@ export const ABOUT_PEPI_CONTENT = {
     },
     {
       heading: "Confidencialidad",
-      text: "Evita compartir datos personales o sensibles. Las conversaciones se procesan de forma segura, pero la protección de la privacidad es esencial. Las interacciones pueden usarse anónimamente para mejorar el sistema."
+      text: "Evita compartir datos personales o sensibles. Las conversaciones se procesan de forma segura, pero la protección de la privacidad es esencial. Las conversaciones solo se guardan en tu dispositivo para proteger tu privacidad y no se comparten externamente."
     }
   ]
 };
