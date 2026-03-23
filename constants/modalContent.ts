@@ -5,7 +5,7 @@ export const ABOUT_EULOGIO_CONTENT = {
   sections: [
     {
       heading: "Versión",
-      text: `Asistente de Ética Profesional - Versión 2.1.2. Esta versión incorpora el texto del Código Deontológico de 2026 e incluye mejoras en el análisis ético mediante la integración de metodologías de deliberación de autores de referencia en la disciplina.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
+      text: `Asistente de Ética Profesional - Versión 2.1.2-beta. Esta versión incorpora el texto del Código Deontológico de 2026 e incluye mejoras en el análisis ético mediante la integración de metodologías de deliberación de autores de referencia en la disciplina.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
     },
     {
       heading: "Propósito",
@@ -31,7 +31,7 @@ export const ABOUT_PEPI_CONTENT = {
   sections: [
     {
       heading: "Versión",
-      text: `Asistente de Ética Profesional - Versión 2.1.2. Esta versión incorpora el texto del Código Deontológico de 2026 e incluye mejoras en el análisis ético mediante la integración de metodologías de deliberación de autores de referencia en la disciplina.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
+      text: `Asistente de Ética Profesional - Versión 2.1.2-beta. Esta versión incorpora el texto del Código Deontológico de 2026 e incluye mejoras en el análisis ético mediante la integración de metodologías de deliberación de autores de referencia en la disciplina.\n\nModelo de IA en uso: ${GEMINI_MODEL_NAME}`
     },
     {
       heading: "Misión",
